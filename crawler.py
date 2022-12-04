@@ -81,6 +81,32 @@ def get_density(soup):
             density = float(density.split("/")[0])
     return density
 
+def get_area(soup):
+    anchors = soup.select(f"tr[class=\"mergedtoprow\"] > th[class=\"infobox-header\"] > a[href]")
+    area = 0
+    for anchor in anchors:
+        if str(anchor.next_element).strip() == "Area":
+            area = anchor.find_parent("tr").next_sibling.td.next_element
+    # missing a[title] on tr > th
+    if area == 0:
+        ths = soup.select(f"tr[class=\"mergedtoprow\"] > th[class=\"infobox-header\"]")
+        for th in ths:
+            if str(th.next_element) == 'Area':
+                area = th.find_parent("tr").next_sibling.td.next_element
+ 
+    if area!=0:
+        area = area.replace(u'\xa0', u' ')
+        area = area.replace(",","")
+        if area.find("sq")!=-1:
+            area = area.split(" ")[0]
+            area = convert_sq_mi_to_sq_km(area)
+        elif area.find("km")!=-1:
+           area = area.split(" ")[0]
+           if area.find("–")!=-1:
+                area = area.split("–")[0]
+           area = float(area)
+    return area
+
 
 def get_country_data(url):
     base_url = "https://en.wikipedia.org"
@@ -91,6 +117,9 @@ def get_country_data(url):
     country_name = soup.find("h1",id="firstHeading").text
     capitals = get_capitals(soup)
     population = get_population(soup)
+    density = get_density(soup)
+    area = get_area(soup)
+    print(f"{country_name}   -  Capital/s: {capitals}  -  Population: {population}    -   Density: {density}    -  Area: {area}")
 
 def crawl(url):
     code = requests.get(url)
