@@ -48,6 +48,39 @@ def get_population(soup):
                 population = int(population.replace("(","").replace(",",""))
     return population
 
+def convert_sq_mi_to_sq_km(sq_mi):
+    return float(sq_mi) / 2.589988
+
+def get_density(soup):
+    anchors = soup.select(f"tr[class=\"mergedtoprow\"] > th[class=\"infobox-header\"] > a[title]")
+    density = 0
+    for anchor in anchors:
+        if str(anchor.next_element).strip() == "Population":
+            element = anchor.find_parent("tr")
+            while "mergedbottomrow" not in element.get("class"):
+                element = element.next_sibling
+            if str(element.th.div.next_element).find("Density")!=-1:
+                density = element.td.next_element
+    # missing a[title] on tr > th
+    if density == 0:
+        ths = soup.select(f"tr[class=\"mergedtoprow\"] > th[class=\"infobox-header\"]")
+        for th in ths:
+            if str(th.next_element) == 'Population':
+                element = th.find_parent("tr")
+                while "mergedbottomrow" not in element.get("class"):
+                    element = element.next_sibling
+                if str(element.th.div.next_element).find("Density")!=-1:
+                    density = element.td.next_element
+    if density!=0 : 
+        density = density.split(" ")[0]
+        density = density.replace(",","")
+        if density.find("sq")!=-1:
+            density = density.split("/")[0]
+            density = convert_sq_mi_to_sq_km(density)
+        if str(density).find("km")!=-1:
+            density = float(density.split("/")[0])
+    return density
+
 
 def get_country_data(url):
     base_url = "https://en.wikipedia.org"
