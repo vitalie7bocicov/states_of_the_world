@@ -107,6 +107,25 @@ def get_area(soup):
            area = float(area)
     return area
 
+def get_official_lang(soup):
+    languages=[]
+    for tr in soup.select('table > tbody > tr'):
+        th = tr.find("th",class_="infobox-label", scope="row")
+        if re.match(r".*>Official.*language.*",str(th)) or re.match(r".*>national.*language.*",str(th).lower()):
+            is_found = False
+            for anchor in tr.td.select("td > a[href]"):
+                languages.append(anchor.get("title"))
+                is_found = True
+            if not is_found:
+                for anchor in tr.td.select("td > span > a[href]"):
+                    languages.append(anchor.get("title"))
+                    is_found = True
+            if not is_found:
+                for anchor in tr.td.select("td div ul li > a[href]"):
+                    languages.append(anchor.get("title"))
+                    is_found = True
+    return languages
+
 
 def get_country_data(url):
     base_url = "https://en.wikipedia.org"
