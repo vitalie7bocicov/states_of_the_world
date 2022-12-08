@@ -126,7 +126,6 @@ def get_official_lang(soup):
                     is_found = True
     return languages
 
-
 def get_country_data(url):
     base_url = "https://en.wikipedia.org"
     url = base_url + url
