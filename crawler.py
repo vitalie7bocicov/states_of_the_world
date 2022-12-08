@@ -1,10 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 
-def add_capitals(url, countries):
+def get_capitals(url, countries):
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
+
+    countries = dict((country, None) for country in countries)
 
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
@@ -42,19 +44,16 @@ def init_countries(url):
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
     anchors = soup.select("td > b > a[href]")
-    countries = dict()
+    countries = []
     for anchor in anchors:
         country = clean_country_name(anchor.get("title"))
-        countries[country] = None
+        countries.append(country)
     return countries
     
 
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
-    add_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
+    capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
 
-    for country, capital in countries.items():
-        if capital is None:
-            print("No capital for {}".format(country))
-        else:
-            print("{}: {}".format(country, capital))
+    for country in capitals.keys():
+        print("{}: {}".format(country, capitals[country]))
