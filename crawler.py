@@ -18,7 +18,11 @@ def get_capitals(url, countries):
                     country = anchor.get("title")
                     td_capital = anchor.find_parent("td").find_previous_sibling("td")
                     if td_capital:
-                        countries[country] = td_capital.select("a[href]")[0].text
+                        try:
+                            countries[country] = td_capital.select("a[href]")[0].text
+                        except Exception as e:
+                            print(e)
+                            print("No capital for {}".format(country))
                     else:
                         print("No capital for {}".format(country))
         elif len(tds) == 1:
@@ -28,9 +32,12 @@ def get_capitals(url, countries):
             if anchor:
                 if anchor.get("title") in countries:
                     country = anchor.get("title")
-                    td_capital = anchor.find_parent("tr").find_previous_sibling("tr").find_all("td")[0]
-                    countries[country] = td_capital.select("a[href]")[0].text
-            
+                    try:
+                        td_capital = anchor.find_parent("tr").find_previous_sibling("tr").find_all("td")[0]
+                        countries[country] = td_capital.select("a[href]")[0].text
+                    except Exception as e:
+                        print(e)
+                        print("No capital for {}".format(country))
     return countries
    
 
@@ -54,6 +61,3 @@ def init_countries(url):
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
-
-    for country in capitals.keys():
-        print("{}: {}".format(country, capitals[country]))
