@@ -43,7 +43,6 @@ def get_capitals(url, countries):
                     print("No capital for {}".format(country))
     return countries
 
-
 def clean_title_population(title):
     if title.startswith("Demographics of the") or title.startswith("Demography of the"):
         return title[title.find("the ")+4:]
@@ -53,7 +52,6 @@ def clean_title_population(title):
     if title.startswith("Population of"):
         return title[title.find("of ")+3:]
     return title
-
 
 def get_population(url, countries):
     code = requests.get(url)
@@ -80,16 +78,17 @@ def get_population(url, countries):
         title = anchor.get("title")
         
         country = clean_title_population(title)
-        if country in countries:
-            td_population = anchor.find_parent("td").find_next_sibling("td")
-            if td_population:
-                try:
-                    countries[country] = td_population.text
-                except Exception as e:
-                    print(e)
-                    print("No population for {}".format(country))
-            else:
-                print("No population for {}".format(country))
+        if country not in countries:
+            continue
+        td_population = anchor.find_parent("td").find_next_sibling("td")
+        if not td_population:
+            print("No population for {}".format(country))
+        try:
+            countries[country] = int(td_population.text.replace(",", ""))
+        except Exception as e:
+            print(e)
+            print("No population for {}".format(country))
+           
     return countries
 
 def clean_country_name(country):
@@ -114,5 +113,4 @@ if __name__ == "__main__":
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
     population = get_population("https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population", countries)
     for country in countries:
-        if population[country]==None:
-            print("No population for {}".format(country))
+        print(country, capitals[country], population[country])
