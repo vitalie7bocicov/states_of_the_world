@@ -91,6 +91,42 @@ def get_population(url, countries):
            
     return countries
 
+def get_density(url, countries):
+    code = requests.get(url)
+    plain = code.text
+    soup = BeautifulSoup(plain, "html5lib")
+
+    countries = dict((country, None) for country in countries)
+
+    for th in soup.find_all("th"):
+        anchor = th.a
+
+        if not anchor:
+            continue
+        if not anchor.get("title"):
+            continue
+        
+        title = anchor.get("title")
+        
+        country = clean_title_population(title)
+
+        # special case for Ireland
+        if country=="Ireland": country = "Republic of Ireland"
+
+        if country not in countries:
+            continue
+        
+        td_density = anchor.find_parent("th").find_next_sibling("td").find_next_sibling("td").find_next_sibling("td").find_next_sibling("td")
+        if not td_density:
+            print ("No density for {}".format(country))
+        try:
+            countries[country] = int(td_density.text.replace(",", ""))
+        except Exception as e:
+            print(e)
+            print ("No density for {}".format(country))
+           
+    return countries
+
 def clean_country_name(country):
     if country == "Kingdom of the Netherlands":
         return "Netherlands"
@@ -112,5 +148,5 @@ if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
     population = get_population("https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population", countries)
-    for country in countries:
-        print(country, capitals[country], population[country])
+    density = get_density("https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density", countries)
+   
