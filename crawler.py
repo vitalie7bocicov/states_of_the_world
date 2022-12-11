@@ -43,7 +43,7 @@ def get_capitals(url, countries):
                     print("No capital for {}".format(country))
     return countries
 
-def clean_title_population(title):
+def clean_title_helper(title):
     if title.startswith("Demographics of the") or title.startswith("Demography of the"):
         return title[title.find("the ")+4:]
 
@@ -53,45 +53,16 @@ def clean_title_population(title):
         return title[title.find("of ")+3:]
     return title
 
-def get_population(url, countries):
-    code = requests.get(url)
-    plain = code.text
-    soup = BeautifulSoup(plain, "html5lib")
+def get_col_number(column):
+    if column == "Population":
+        return 1
+    if column == "Area":
+        return 2
+    if column == "Density":
+        return 4
 
-    countries = dict((country, None) for country in countries)
-
-    for tr in soup.find_all("tr"):
-        tds = tr.find_all("td")
-
-        if len(tds) < 2:
-            continue
-
-        country_td = tds[0]
-        anchor = country_td.a
-
-        if not anchor:
-            continue
-
-        if not anchor.get("title"):
-            continue
-        
-        title = anchor.get("title")
-        
-        country = clean_title_population(title)
-        if country not in countries:
-            continue
-        td_population = anchor.find_parent("td").find_next_sibling("td")
-        if not td_population:
-            print("No population for {}".format(country))
-        try:
-            countries[country] = int(td_population.text.replace(",", ""))
-        except Exception as e:
-            print(e)
-            print("No population for {}".format(country))
-           
-    return countries
-
-def get_density(url, countries):
+def get_info(column, countries):
+    url = "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density"
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
@@ -108,24 +79,27 @@ def get_density(url, countries):
         
         title = anchor.get("title")
         
-        country = clean_title_population(title)
+        country = clean_title_helper(title)
 
         # special case for Ireland
         if country=="Ireland": country = "Republic of Ireland"
 
         if country not in countries:
             continue
-        
-        td_density = anchor.find_parent("th").find_next_sibling("td").find_next_sibling("td").find_next_sibling("td").find_next_sibling("td")
-        if not td_density:
-            print ("No density for {}".format(country))
+        td_info = anchor.find_parent("th")
+        column_number = get_col_number(column)
+        while column_number > 0:
+            td_info = td_info.find_next_sibling("td")
+            column_number -= 1
+        if not td_info:
+            print ("No info for {}, on column {}".format(country, column))
         try:
-            countries[country] = int(td_density.text.replace(",", ""))
+            countries[country] = int(td_info.text.replace(",", ""))
         except Exception as e:
             print(e)
-            print ("No density for {}".format(country))
-           
+            print ("No info for {}, on column {}".format(country, column))
     return countries
+
 
 def clean_country_name(country):
     if country == "Kingdom of the Netherlands":
@@ -147,6 +121,9 @@ def init_countries(url):
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
-    population = get_population("https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population", countries)
-    density = get_density("https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density", countries)
+    population = get_info("Population", countries)
+    area = get_info("Area", countries)
+    density = get_info("Density", countries)
+    for country in countries:
+        print ("{}: {}, {}, {}, {}".format(country, capitals[country], population[country], area[country], density[country]))
    
