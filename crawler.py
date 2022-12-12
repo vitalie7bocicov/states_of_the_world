@@ -60,8 +60,10 @@ def get_col_number(column):
         return 2
     if column == "Density":
         return 4
+    if column == "Neigbouring countries":
+        return 5
 
-def get_info(column, countries):
+def get_single_info(column, countries):
     url = "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density"
     code = requests.get(url)
     plain = code.text
@@ -100,6 +102,41 @@ def get_info(column, countries):
             print ("No info for {}, on column {}".format(country, column))
     return countries
 
+def get_multiple_info(url, countries,column):
+    code = requests.get(url)
+    plain = code.text
+    soup = BeautifulSoup(plain, "html5lib")
+    countries = dict((country, None) for country in countries)
+    for tr in soup.find_all("tr"):
+        tds = tr.find_all("td")
+        if len(tds) < 7:
+            continue
+        country_td = tds[1]
+        anchors = country_td.select("a[href]")
+        if not anchors:
+            continue
+        anchor = anchors[0]
+        if not anchor:
+            continue
+        if not anchor.get("title"):
+            continue
+        if anchor.get("title") in countries:
+            country = anchor.get("title")
+            td_info = anchor.find_parent("td")
+            column_number = get_col_number(column)
+            while column_number > 0:
+                td_info = td_info.find_next_sibling("td")
+                column_number -= 1
+            if not td_info:
+                print("No multiple info for {}".format(country))
+                continue
+            try:
+                anchors = td_info.select("a[href]")
+                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") in countries]
+            except Exception as e:
+                print(e)
+                print("No multiple info for {}".format(country))
+    return countries
 
 def clean_country_name(country):
     if country == "Kingdom of the Netherlands":
@@ -121,9 +158,9 @@ def init_countries(url):
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
-    population = get_info("Population", countries)
-    area = get_info("Area", countries)
-    density = get_info("Density", countries)
-    for country in countries:
-        print ("{}: {}, {}, {}, {}".format(country, capitals[country], population[country], area[country], density[country]))
+    population = get_single_info("Population", countries)
+    area = get_single_info("Area", countries)
+    density = get_single_info("Density", countries)
+    neigbouring_countries = get_multiple_info("https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders", countries, "Neigbouring countries")
+    
    
