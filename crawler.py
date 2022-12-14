@@ -142,11 +142,6 @@ def get_multiple_info(url, countries,column):
                 print("No multiple info for {} with {}".format(country,column))
     return countries
 
-def clean_country_name(country):
-    if country == "Kingdom of the Netherlands":
-        return "Netherlands"
-    return country
-
 def init_countries(url):
     code = requests.get(url)
     plain = code.text
@@ -154,7 +149,8 @@ def init_countries(url):
     anchors = soup.select("td > b > a[href]")
     countries = []
     for anchor in anchors:
-        country = clean_country_name(anchor.get("title"))
+        country = anchor.get("title")
+        if country == "Kingdom of the Netherlands" : country = "Netherlands"
         countries.append(country)
     return countries
     
@@ -167,4 +163,4 @@ if __name__ == "__main__":
     density = get_single_info("Density", countries)
     neigbouring_countries = get_multiple_info("https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders", countries, "Neigbouring countries")
     time_zones = get_multiple_info("https://en.wikipedia.org/wiki/List_of_time_zones_by_country", countries, "Time zones")
-    
+  
