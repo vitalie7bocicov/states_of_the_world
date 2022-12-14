@@ -54,7 +54,7 @@ def clean_title_helper(title):
     return title
 
 def get_col_number(column):
-    if column == "Population":
+    if column == "Population" or column == "Constitutional form":
         return 1
     if column == "Area" or column == "Time zones":
         return 2
@@ -63,24 +63,19 @@ def get_col_number(column):
     if column == "Neigbouring countries":
         return 5
 
-def get_single_info(column, countries):
+def get_demographics_info(column, countries):
     url = "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density"
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
-
     countries = dict((country, None) for country in countries)
-
     for th in soup.find_all("th"):
         anchor = th.a
-
         if not anchor:
             continue
         if not anchor.get("title"):
             continue
-        
         title = anchor.get("title")
-        
         country = clean_title_helper(title)
 
         # special case for Ireland
@@ -102,6 +97,18 @@ def get_single_info(column, countries):
             print ("No info for {}, on column {}".format(country, column))
     return countries
 
+def anchor_contains_country(anchors, countries):
+    if not anchors:
+        return False
+    anchor = anchors[0]
+    if not anchor:
+        return False
+    if not anchor.get("title"):
+        return False
+    if anchor.get("title") not in countries:
+        return False
+    return True
+
 def get_multiple_info(url, countries,column):
     code = requests.get(url)
     plain = code.text
@@ -114,32 +121,29 @@ def get_multiple_info(url, countries,column):
         if column == "Neigbouring countries": country_td = tds[1]
         else: country_td = tds[0]
         anchors = country_td.select("a[href]")
-        if not anchors:
+        if not anchor_contains_country(anchors, countries):
             continue
         anchor = anchors[0]
-        if not anchor:
+        country = anchor.get("title")
+        td_info = anchor.find_parent("td")
+        column_number = get_col_number(column)
+        while column_number > 0:
+            td_info = td_info.find_next_sibling("td")
+            column_number -= 1
+        if not td_info:
+            print("No multiple info for {}".format(country))
             continue
-        if not anchor.get("title"):
-            continue
-        if anchor.get("title") in countries:
-            country = anchor.get("title")
-            td_info = anchor.find_parent("td")
-            column_number = get_col_number(column)
-            while column_number > 0:
-                td_info = td_info.find_next_sibling("td")
-                column_number -= 1
-            if not td_info:
-                print("No multiple info for {}".format(country))
-                continue
-            try:
-                anchors = td_info.select("a[href]")
-                if column == "Neigbouring countries":
-                    countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title") in countries]
-                elif column == "Time zones":
-                    countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
-            except Exception as e:
-                print(e)
-                print("No multiple info for {} with {}".format(country,column))
+        try:
+            anchors = td_info.select("a[href]")
+            if column == "Neigbouring countries":
+                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title") in countries]
+            elif column == "Time zones":
+                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
+            elif column == "Constitutional form":
+                countries[country] = td_info.text
+        except Exception as e:
+            print(e)
+            print("No multiple info for {} with {}".format(country,column))
     return countries
 
 def init_countries(url):
@@ -158,9 +162,13 @@ def init_countries(url):
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
-    population = get_single_info("Population", countries)
-    area = get_single_info("Area", countries)
-    density = get_single_info("Density", countries)
+    population = get_demographics_info("Population", countries)
+    area = get_demographics_info("Area", countries)
+    density = get_demographics_info("Density", countries)
     neigbouring_countries = get_multiple_info("https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders", countries, "Neigbouring countries")
     time_zones = get_multiple_info("https://en.wikipedia.org/wiki/List_of_time_zones_by_country", countries, "Time zones")
+    constitutional_form = get_multiple_info("https://en.wikipedia.org/wiki/List_of_countries_by_system_of_government", countries, "Constitutional form")
+    for country in countries:
+        print(country, capitals[country], population[country], area[country], density[country], neigbouring_countries[country], time_zones[country], constitutional_form[country])
+ 
   
