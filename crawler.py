@@ -56,7 +56,7 @@ def clean_title_helper(title):
 def get_col_number(column):
     if column == "Population":
         return 1
-    if column == "Area":
+    if column == "Area" or column == "Time zones":
         return 2
     if column == "Density":
         return 4
@@ -109,9 +109,10 @@ def get_multiple_info(url, countries,column):
     countries = dict((country, None) for country in countries)
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
-        if len(tds) < 7:
+        if len(tds) < 2:
             continue
-        country_td = tds[1]
+        if column == "Neigbouring countries": country_td = tds[1]
+        else: country_td = tds[0]
         anchors = country_td.select("a[href]")
         if not anchors:
             continue
@@ -132,10 +133,13 @@ def get_multiple_info(url, countries,column):
                 continue
             try:
                 anchors = td_info.select("a[href]")
-                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") in countries]
+                if column == "Neigbouring countries":
+                    countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title") in countries]
+                elif column == "Time zones":
+                    countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
             except Exception as e:
                 print(e)
-                print("No multiple info for {}".format(country))
+                print("No multiple info for {} with {}".format(country,column))
     return countries
 
 def clean_country_name(country):
@@ -162,5 +166,5 @@ if __name__ == "__main__":
     area = get_single_info("Area", countries)
     density = get_single_info("Density", countries)
     neigbouring_countries = get_multiple_info("https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders", countries, "Neigbouring countries")
+    time_zones = get_multiple_info("https://en.wikipedia.org/wiki/List_of_time_zones_by_country", countries, "Time zones")
     
-   
