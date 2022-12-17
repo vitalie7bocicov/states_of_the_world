@@ -245,8 +245,8 @@ def init_countries(url):
         if country == "Kingdom of the Netherlands" : country = "Netherlands"
         countries.append(country)
     return countries
-    
-if __name__ == "__main__":
+
+def crawl():
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
     population = get_demographics_info("Population", countries)
@@ -261,7 +261,10 @@ if __name__ == "__main__":
     national_languages = get_languages( "National languages",countries)
     widely_spoken_languages = get_languages( "Widely spoken languages",countries)
 
-  
+    return [countries, capitals, population, area, density, neigbouring_countries,
+            time_zones, constitutional_form, official_languages, regional_languages,
+            minority_languages, national_languages, widely_spoken_languages]
+
   
 
  
