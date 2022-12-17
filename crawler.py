@@ -246,7 +246,6 @@ def init_countries(url):
         countries.append(country)
     return countries
     
-
 if __name__ == "__main__":
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
     capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
@@ -261,7 +260,6 @@ if __name__ == "__main__":
     minority_languages = get_languages( "Minority languages",countries)
     national_languages = get_languages( "National languages",countries)
     widely_spoken_languages = get_languages( "Widely spoken languages",countries)
-    
 
   
   
