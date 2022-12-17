@@ -5,13 +5,10 @@ def get_capitals(url, countries):
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
-
-    countries = dict((country, None) for country in countries)
-
+    capitals = dict((country, None) for country in countries)
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
-        if len(tds) < 2:
-            continue
+        if len(tds) < 2: continue
         country_td = tds[1]
         anchors = country_td.select("a[href]")
         for anchor in anchors:
@@ -22,11 +19,10 @@ def get_capitals(url, countries):
                     print("No capital for {}".format(country))
                     continue
                 try:
-                    countries[country] = td_capital.select("a[href]")[0].text
+                    capitals[country] = td_capital.select("a[href]")[0].text
                 except Exception as e:
                     print(e)
                     print("No capital for {}".format(country))
-                    
         if len(tds) == 1:
             # Palestine is a special case
             country_td = tds[0]
@@ -37,16 +33,15 @@ def get_capitals(url, countries):
                 country = anchor.get("title")
                 try:
                     td_capital = anchor.find_parent("tr").find_previous_sibling("tr").find_all("td")[0]
-                    countries[country] = td_capital.select("a[href]")[0].text
+                    capitals[country] = td_capital.select("a[href]")[0].text
                 except Exception as e:
                     print(e)
                     print("No capital for {}".format(country))
-    return countries
+    return capitals
 
 def clean_title_helper(title):
     if title.startswith("Demographics of the") or title.startswith("Demography of the"):
         return title[title.find("the ")+4:]
-
     if title.startswith("Demograph"):
         return title[title.find("of ")+3:]
     if title.startswith("Population of"):
@@ -70,21 +65,18 @@ def get_demographics_info(column, countries):
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
-    countries = dict((country, None) for country in countries)
+    demographics = dict((country, None) for country in countries)
     for th in soup.find_all("th"):
         anchor = th.a
-        if not anchor:
-            continue
-        if not anchor.get("title"):
-            continue
+        if not anchor: continue
+        if not anchor.get("title"): continue
         title = anchor.get("title")
         country = clean_title_helper(title)
 
         # special case for Ireland
         if country=="Ireland": country = "Republic of Ireland"
 
-        if country not in countries:
-            continue
+        if country not in countries: continue
         td_info = anchor.find_parent("th")
         column_number = get_col_number(column)
         while column_number > 0:
@@ -93,11 +85,11 @@ def get_demographics_info(column, countries):
         if not td_info:
             print ("No info for {}, on column {}".format(country, column))
         try:
-            countries[country] = int(td_info.text.replace(",", ""))
+            demographics[country] = int(td_info.text.replace(",", ""))
         except Exception as e:
             print(e)
             print ("No info for {}, on column {}".format(country, column))
-    return countries
+    return demographics
 
 def is_valid_anchor(anchors):
     if not anchors: 
@@ -113,11 +105,10 @@ def get_multiple_info(url, countries,column):
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
-    countries = dict((country, None) for country in countries)
+    data = dict((country, None) for country in countries)
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
-        if len(tds) < 2:
-            continue
+        if len(tds) < 2: continue
         if column == "Neigbouring countries": country_td = tds[1]
         else: country_td = tds[0]
         anchors = country_td.select("a[href]")
@@ -136,15 +127,15 @@ def get_multiple_info(url, countries,column):
         try:
             anchors = td_info.select("a[href]")
             if column == "Neigbouring countries":
-                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title") in countries]
+                data[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title") in countries]
             elif column == "Time zones":
-                countries[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
+                data[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
             elif column == "Constitutional form":
-                countries[country] = td_info.text
+                data[country] = td_info.text
         except Exception as e:
             print(e)
             print("No multiple info for {} with {}".format(country,column))
-    return countries
+    return data
 
 def format_country_name(country):
     if country == "Bahamas": return "The Bahamas"
@@ -156,9 +147,10 @@ def format_country_name(country):
     return country
 
 def format_languages(languages):
-    if len(languages) and languages[0].startswith("None") or languages[0].strip()=='':
+    if not languages: return []
+    if languages[0].startswith("None") or languages[0].strip()=='':
         return []
-    if len(languages) and languages[0].find("languages - ") != -1:
+    if languages[0].find("languages - ") != -1:
             multiple_languages = languages[0][languages[0].find("languages - ")+12:]
             languages = multiple_languages.split(", ")
     for i in range(len(languages)):
@@ -171,10 +163,9 @@ def format_languages(languages):
             languages[i] = languages[i].replace(" language","")
         if languages[i].find(" and ") != -1:
             languages[i] = languages[i].replace(" and ","")
-        if languages[i].find("dialects") != -1:
-            del languages[i]
-            continue
-        if languages[i].find("see ") != -1 or languages[i].find("Languages of") != -1:
+        if (languages[i].find("dialects") != -1
+                or languages[i].find("see ") != -1 
+                or languages[i].find("Languages of") != -1):
             del languages[i]
             continue
         if languages[i].find("in ") != -1:
@@ -191,7 +182,25 @@ def format_languages(languages):
     if languages[0].find("Regional/State")!= -1:
         return []
     return languages
-    
+
+def get_languages_from_td(td, country, countries):
+    ul = td.find("ul")
+    if ul:
+        for li in ul.find_all("li"):
+            if li.text.startswith("None"): break
+            if li.find("a[title]"):
+                countries[country].append(li.a.get("title"))
+            else:
+                countries[country].append(li.text)
+    else:
+        if td.find("p"): 
+            td = td.find("p")
+        if td.next_element.name == "a":
+                countries[country].append(td.next_element.get("title"))
+        else:
+            countries[country].append(td.next_element.text)
+    return countries[country]
+
 def get_languages(column, countries):
     url = "https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory"
     code = requests.get(url)
@@ -210,29 +219,15 @@ def get_languages(column, countries):
             country = format_country_name(country)
             if country not in countries: continue
         td_info = anchor.find_parent("td")
+
         column_number = get_col_number(column)
         while column_number > 0:
             td_info = td_info.find_next_sibling("td")
             column_number -= 1
         if not td_info:
-            print("No language info for {} with {}".format(country,column))
             continue
         try:
-            ul = td_info.find("ul")
-            if ul:
-                for li in ul.find_all("li"):
-                    if li.text.startswith("None"): break
-                    if li.find("a[title]"):
-                        countries[country].append(li.a.get("title"))
-                    else:
-                        countries[country].append(li.text)
-            else:
-                if td_info.find("p"): 
-                    td_info = td_info.find("p")
-                if td_info.next_element.name == "a":
-                        countries[country].append(td_info.next_element.get("title"))
-                else:
-                    countries[country].append(td_info.next_element.text)
+            countries[country] = get_languages_from_td(td_info, country, countries)
             countries[country] = format_languages(countries[country])
         except Exception as e:
             print(e)
@@ -266,6 +261,7 @@ if __name__ == "__main__":
     minority_languages = get_languages( "Minority languages",countries)
     national_languages = get_languages( "National languages",countries)
     widely_spoken_languages = get_languages( "Widely spoken languages",countries)
+    
 
   
   
