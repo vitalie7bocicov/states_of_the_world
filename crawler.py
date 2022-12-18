@@ -1,42 +1,68 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_capitals(url, countries):
+def is_valid_anchor(anchors):
+    if not anchors: 
+        return False
+    anchor = anchors[0]
+    if not anchor: 
+        return False
+    if not anchor.get("title"):
+        return False
+    return True
+
+def get_other_capitals(capitals, tr, td, country, countries):
+    # other capitals
+    tr_sibling = tr.find_next_sibling("tr")
+    if not tr_sibling:
+        return capitals
+    tds = tr_sibling.find_all("td")
+    if len(tds)>2: 
+        return capitals
+    td = tds[0]
+    anchors = td.select("a[href]")
+    if not is_valid_anchor(anchors): 
+        return capitals
+    anchor = anchors[0]
+    if anchor.get("title") in countries: 
+        return capitals
+    capitals.append(anchor.text)
+    return capitals
+        
+
+def get_capitals(countries):
+    url = "https://en.wikipedia.org/wiki/List_of_national_capitals"
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
-    capitals = dict((country, None) for country in countries)
+    capitals = dict((country, []) for country in countries)
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
         if len(tds) < 2: continue
         country_td = tds[1]
         anchors = country_td.select("a[href]")
-        for anchor in anchors:
-            if anchor.get("title") in countries:
-                country = anchor.get("title")
-                td_capital = anchor.find_parent("td").find_previous_sibling("td")
-                if not td_capital:
-                    print("No capital for {}".format(country))
-                    continue
-                try:
-                    capitals[country] = td_capital.select("a[href]")[0].text
-                except Exception as e:
-                    print(e)
-                    print("No capital for {}".format(country))
-        if len(tds) == 1:
-            # Palestine is a special case
-            country_td = tds[0]
-            anchor = country_td.a
-            if not anchor:
-                continue
-            if anchor.get("title") in countries:
-                country = anchor.get("title")
-                try:
-                    td_capital = anchor.find_parent("tr").find_previous_sibling("tr").find_all("td")[0]
-                    capitals[country] = td_capital.select("a[href]")[0].text
-                except Exception as e:
-                    print(e)
-                    print("No capital for {}".format(country))
+        if not is_valid_anchor(anchors): continue
+        anchor = anchors[0]
+        country = anchor.get("title")
+        if country not in countries: continue
+        country_td = anchor.find_parent("td")
+        td_capital = country_td.find_previous_sibling("td")
+        if not td_capital:
+            print("No capital for {}".format(country))
+            continue
+        try:
+            # first capital
+            capitals[country].append(td_capital.select("a[href]")[0].text)
+            capitals[country] = get_other_capitals(capitals[country], tr, td_capital, country, countries)
+            # special case for South Africa
+            if country == "South Africa":
+                capitals[country] = get_other_capitals(capitals[country],
+                 tr.find_next_sibling("tr"), td_capital, country, countries)   
+        except Exception as e:
+            print(e)
+            print("No capital for {}".format(country))
+    # special case for State of Palestine
+    capitals["State of Palestine"] = capitals["Israel"]
     return capitals
 
 def clean_title_helper(title):
@@ -90,16 +116,6 @@ def get_demographics_info(column, countries):
             print(e)
             print ("No info for {}, on column {}".format(country, column))
     return demographics
-
-def is_valid_anchor(anchors):
-    if not anchors: 
-        return False
-    anchor = anchors[0]
-    if not anchor: 
-        return False
-    if not anchor.get("title"):
-        return False
-    return True
 
 def get_multiple_info(url, countries,column):
     code = requests.get(url)
@@ -248,7 +264,7 @@ def init_countries(url):
 
 def crawl():
     countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
-    capitals = get_capitals("https://en.wikipedia.org/wiki/List_of_national_capitals", countries)
+    capitals = get_capitals(countries)
     population = get_demographics_info("Population", countries)
     area = get_demographics_info("Area", countries)
     density = get_demographics_info("Density", countries)
@@ -264,8 +280,6 @@ def crawl():
     return [countries, capitals, population, area, density, neigbouring_countries,
             time_zones, constitutional_form, official_languages, regional_languages,
             minority_languages, national_languages, widely_spoken_languages]
-
-
 
  
   
