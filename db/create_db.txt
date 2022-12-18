@@ -1,0 +1,97 @@
+CREATE TABLE `statesdb`.`states` (
+  `ID` INT NOT NULL,
+  `NAME` VARCHAR(45) NOT NULL,
+  `POPULATION` INT NULL,
+  `AREA` FLOAT NULL,
+  `DENSITY` FLOAT NULL,
+  `CONSITUTIONAL_FORM` VARCHAR(45) NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `NAME_UNIQUE` (`NAME` ASC) VISIBLE,
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE);
+
+CREATE TABLE `statesdb`.`capitals` (
+  `ID` INT NULL,
+  `NAME` VARCHAR(45) NULL,
+  INDEX `capital_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `capital_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`neighbouring_countries` (
+  `ID1` INT NULL,
+  `ID2` INT NULL,
+  INDEX `neighbour1_idx` (`ID1` ASC) VISIBLE,
+  INDEX `neighbour2_fk_idx` (`ID2` ASC) VISIBLE,
+  CONSTRAINT `neighbour1_fk`
+    FOREIGN KEY (`ID1`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `neighbour2_fk`
+    FOREIGN KEY (`ID2`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `statesdb`.`time_zones` (
+  `ID` INT NULL,
+  `time_zone` VARCHAR(45) NULL,
+  INDEX `time-zone_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `time-zone_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`official_languages` (
+  `ID` INT NULL,
+  `LANGUAGE` VARCHAR(45) NULL,
+  INDEX `official-language_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `official-language_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`regional_languages` (
+  `ID` INT NULL,
+  `LANGUAGE` VARCHAR(45) NULL,
+  INDEX `regional-lang_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `regional-lang_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`national_languages` (
+  `ID` INT NULL,
+  `LANGUAGE` VARCHAR(45) NULL,
+  INDEX `national-lang_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `national-lang_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`widely_spoken_languages` (
+  `ID` INT NULL,
+  `LANGUAGE` VARCHAR(45) NULL,
+  INDEX `widely-spoken-lang_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `widely-spoken-lang_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `statesdb`.`minority_languages` (
+  `ID` INT NULL,
+  `LANGUAGE` VARCHAR(45) NULL,
+  INDEX `minority-lang_fk_idx` (`ID` ASC) VISIBLE,
+  CONSTRAINT `minority-lang_fk`
+    FOREIGN KEY (`ID`)
+    REFERENCES `statesdb`.`states` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
