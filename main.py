@@ -21,4 +21,4 @@ def populate_db(countries, capitals, population,
    
 if __name__ == "__main__":
      # populate_db(*crawl())
-    
+    pass
