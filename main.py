@@ -1,6 +1,7 @@
-from crawler import crawl
-from db import *
-
+from crawler.crawler import crawl
+from db.db import *
+from db.populate_db import *
+from wikipedia_api import *
 
 def populate_db(countries, capitals, population, 
                 area, density, neighbouring_countries, 
@@ -17,8 +18,6 @@ def populate_db(countries, capitals, population,
     populate_languages(countries, national_languages, "national_languages")
     populate_languages(countries, widely_spoken_languages, "widely_spoken_languages")
    
-        
-   
 if __name__ == "__main__":
      # populate_db(*crawl())
-    pass
+     pass
