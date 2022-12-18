@@ -11,9 +11,8 @@ def create_server_connection():
             passwd="root",
             database="statesdb"
         )
-        print("MySQL Database connection successful")
     except Error as err:
-        print(f"Error: '{err}'")
+        print(f"Error in create_server_connection: '{err}'")
 
     return connection
 
@@ -24,7 +23,7 @@ def execute_query(connection, query,country):
         connection.commit()
         cursor.close()
     except Error as err:
-        print(f"Error at country {country}: '{err}'")
+        print(f"Error at execute_query with country {country}: '{err}'")
 
 def replace_NONE_with_NULL(data):
     for country in data:
@@ -42,22 +41,53 @@ def populate_states(countries,population,area,density,constitutional_form):
         query = f"INSERT INTO states (ID,NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL_FORM) VALUES ({index}, '{country}', {population[country]}, {area[country]}, {density[country]}, '{constitutional_form[country]}')"
         execute_query(connection,query,country)
     connection.close()
+    print("States populated successfully!")
 
 def populate_capitals(countries,capitals):
     connection = create_server_connection()
     for index,country in enumerate(countries):
-        if capitals[country]==None:
-            capitals[country] = "NULL"
-        if capitals[country].find("'")!=-1:
-            capitals[country] = capitals[country].replace("'","\\'")
-        query = f"INSERT INTO capitals (ID,NAME) VALUES ({index}, '{capitals[country]}')"
-        execute_query(connection,query,country)
+        for capital in capitals[country]:
+            if capital==None:
+                capital = "NULL"
+            if capital.find("'")!=-1:
+               capital = capital.replace("'","\\'")
+            query = f"INSERT INTO capitals (ID,NAME) VALUES ({index}, '{capital}')"
+            execute_query(connection,query,country)
     connection.close()
+    print("Capitals populated successfully!")
 
 def populate_neighbouring_countries(countries,neighbouring_countries):
     connection = create_server_connection()
     for index,country in enumerate(countries):
-        if neighbouring_countries[country]==None:
-            neighbouring_countries[country] = "NULL"
-        query = f"INSERT INTO neighbouring_countries (ID1,ID2) VALUES ({index}, '{countries}')"
-        execute_query(connection,query,country)
+        if not neighbouring_countries[country]:
+            continue
+        for neighbour_country in neighbouring_countries[country]:
+            query = f"INSERT INTO neighbouring_countries (ID1,ID2) VALUES ({index}, '{countries.index(neighbour_country)}')"
+            execute_query(connection,query,country)
+    connection.close()
+    print("Neighbouring countries populated successfully!")
+
+def populate_time_zones(countries,time_zones):
+    connection = create_server_connection()
+    for index,country in enumerate(countries):
+        if not time_zones[country]:
+            continue
+        for time_zone in time_zones[country]:
+            query = f"INSERT INTO time_zones (ID,TIME_ZONE) VALUES ({index}, '{time_zone}')"
+            execute_query(connection,query,country)
+    connection.close()
+    print("Time zones populated successfully!")
+
+def populate_languages(countries,languages,table_name):
+    connection = create_server_connection()
+    for index,country in enumerate(countries):
+        if not languages[country]:
+            continue
+        for language in languages[country]:
+            if language.find("'")!=-1:
+                language = language.replace("'","\\'")
+            query = f"INSERT INTO {table_name} (ID,LANGUAGE) VALUES ({index}, '{language}')"
+            execute_query(connection,query,country)
+    connection.close()
+    print(f"{table_name} populated successfully!")
+
