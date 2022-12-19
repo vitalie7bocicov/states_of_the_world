@@ -19,13 +19,16 @@ def top_10_by_density():
 def countries():
   return get_all_countries()
 
+@app.get("/countries/{country}")
+def country(country):
+  return get_country(country)
+
 @app.get("/countries/capitals")
 def countries_capitals():
   return get_all_capitals()
 
 @app.get("/countries/population")
 def countries_by_population(order="DESC"):
-  print(order)
   return get_all_by_property("POPULATION",order)
 
 @app.get("/countries/area")
@@ -63,3 +66,39 @@ def countries_by_widely_spoken_languages():
 @app.get("/countries/languages/minority")
 def countries_by_widely_spoken_languages():
   return get_all_languages("minority_languages")
+
+@app.get("/countries/time_zones")
+def countries_by_time_zones():
+  return get_all_time_zones()
+
+@app.get("/countries/time_zone/{time_zone}")
+def countries_by_time_zone(time_zone):
+  return get_countries_by_time_zone(time_zone)
+
+@app.get("/countries/language/official_languages/{language}")
+def countries_by_official_language(language):
+  return get_countries_by_language("official_languages",language)
+
+@app.get("/countries/language/national_languages/{language}")
+def countries_by_national_language(language):
+  return get_countries_by_language("national_languages",language)
+
+@app.get("/countries/language/regional_languages/{language}")
+def countries_by_regional_language(language):
+  return get_countries_by_language("regional_languages",language)
+
+@app.get("/countries/language/widely_spoken_languages/{language}")
+def countries_by_widely_spoken_language(language):
+  return get_countries_by_language("widely_spoken_languages",language)
+
+@app.get("/countries/language/minority_languages/{language}")
+def countries_by_minority_language(language):
+  return get_countries_by_language("minority_languages",language)
+
+@app.get("/countries/constitutional_form/{constitutional_form}")
+def countries_by_constitutional_form(constitutional_form):
+  return get_countries_by_constitutional_form(constitutional_form)
+
+@app.get("/countries/capitals/more_than_1")
+def countries_with_more_than_1_capital():
+  return get_countries_with_more_than_1_capital()

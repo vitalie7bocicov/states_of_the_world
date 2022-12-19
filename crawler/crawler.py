@@ -147,7 +147,7 @@ def get_multiple_info(url, countries,column):
             elif column == "Time zones":
                 data[country] = [anchor.get("title") for anchor in anchors if anchor.get("title") and anchor.get("title").startswith("UTC")]
             elif column == "Constitutional form":
-                data[country] = td_info.text
+                data[country] = td_info.text.strip()
         except Exception as e:
             print(e)
             print("No multiple info for {} with {}".format(country,column))
