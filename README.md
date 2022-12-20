@@ -13,3 +13,7 @@ pip install uvicorn
 # start the server
 
 uvicorn wikipedia_api:app --reload
+
+# run the client
+
+python .\client.py
