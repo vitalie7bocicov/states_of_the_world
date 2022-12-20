@@ -1,18 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
+from .helpers import *
 
-def is_valid_anchor(anchors):
-    if not anchors: 
-        return False
-    anchor = anchors[0]
-    if not anchor: 
-        return False
-    if not anchor.get("title"):
-        return False
-    return True
+def get_other_capitals(capitals, tr, td, countries):
+    """
+    Get a list of capital cities for a given list of countries.
 
-def get_other_capitals(capitals, tr, td, country, countries):
-    # other capitals
+    :param capitals: A list of capital cities for a given country.
+    :type capitals: list
+    :param tr: A BeautifulSoup object representing a table row.
+    :type tr: BeautifulSoup
+    :param td: A BeautifulSoup object representing a table cell.
+    :type td: BeautifulSoup
+    :param countries: A list of strings representing the names of the countries.
+    :type countries: list
+    :returns: A list of capital cities for a given country.
+    :rtype: list
+    """
     tr_sibling = tr.find_next_sibling("tr")
     if not tr_sibling:
         return capitals
@@ -21,7 +25,7 @@ def get_other_capitals(capitals, tr, td, country, countries):
         return capitals
     td = tds[0]
     anchors = td.select("a[href]")
-    if not is_valid_anchor(anchors): 
+    if not anchors_are_valid(anchors): 
         return capitals
     anchor = anchors[0]
     if anchor.get("title") in countries: 
@@ -29,8 +33,15 @@ def get_other_capitals(capitals, tr, td, country, countries):
     capitals.append(anchor.text)
     return capitals
         
-
 def get_capitals(countries):
+    """
+    Get a list of capital cities for a given list of countries.
+
+    :param countries: A list of strings representing the names of the countries.
+    :type countries: list
+    :returns: A dictionary mapping each country to a list of its capital cities.
+    :rtype: dict
+    """
     url = "https://en.wikipedia.org/wiki/List_of_national_capitals"
     code = requests.get(url)
     plain = code.text
@@ -41,52 +52,41 @@ def get_capitals(countries):
         if len(tds) < 2: continue
         country_td = tds[1]
         anchors = country_td.select("a[href]")
-        if not is_valid_anchor(anchors): continue
+        if not anchors_are_valid(anchors): continue
         anchor = anchors[0]
         country = anchor.get("title")
         if country not in countries: continue
         country_td = anchor.find_parent("td")
-        td_capital = country_td.find_previous_sibling("td")
-        if not td_capital:
-            print("No capital for {}".format(country))
+        capital_td = country_td.find_previous_sibling("td")
+        if not capital_td:
+            print("No capital information found for {}".format(country))
             continue
         try:
             # first capital
-            capitals[country].append(td_capital.select("a[href]")[0].text)
-            capitals[country] = get_other_capitals(capitals[country], tr, td_capital, country, countries)
+            capitals[country].append(capital_td.select("a[href]")[0].text)
+            capitals[country] = get_other_capitals(capitals[country], tr, capital_td, countries)
             # special case for South Africa
             if country == "South Africa":
                 capitals[country] = get_other_capitals(capitals[country],
-                 tr.find_next_sibling("tr"), td_capital, country, countries)   
+                 tr.find_next_sibling("tr"), capital_td, countries)   
         except Exception as e:
             print(e)
-            print("No capital for {}".format(country))
+            print("No capital information found for {}".format(country))
     # special case for State of Palestine
     capitals["State of Palestine"] = capitals["Israel"]
     return capitals
 
-def clean_title_helper(title):
-    if title.startswith("Demographics of the") or title.startswith("Demography of the"):
-        return title[title.find("the ")+4:]
-    if title.startswith("Demograph"):
-        return title[title.find("of ")+3:]
-    if title.startswith("Population of"):
-        return title[title.find("of ")+3:]
-    return title
-
-def get_col_number(column):
-    if column == "Population" or column == "Constitutional form" or column == "Official languages":
-        return 1
-    if column == "Area" or column == "Time zones" or column == "Regional languages":
-        return 2
-    if column == "Minority languages":
-        return 3
-    if column == "Density" or column == "National languages":
-        return 4
-    if column == "Neigbouring countries" or column == "Widely spoken languages":
-        return 5
-
 def get_demographics_info(column, countries):
+    """
+    Get demographic information for a list of countries from Wikipedia.
+
+    :param column: The column number or name for the desired information on the Wikipedia page.
+    :type column: int or str
+    :param countries: A list of strings representing the names of the countries.
+    :type countries: list
+    :returns: A dictionary mapping each country to its demographic information as an integer.
+    :rtype: dict
+    """
     url = "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density"
     code = requests.get(url)
     plain = code.text
@@ -97,14 +97,13 @@ def get_demographics_info(column, countries):
         if not anchor: continue
         if not anchor.get("title"): continue
         title = anchor.get("title")
-        country = clean_title_helper(title)
-
+        country = clean_title(title)
         # special case for Ireland
         if country=="Ireland": country = "Republic of Ireland"
 
         if country not in countries: continue
         td_info = anchor.find_parent("th")
-        column_number = get_col_number(column)
+        column_number = get_column_number(column)
         while column_number > 0:
             td_info = td_info.find_next_sibling("td")
             column_number -= 1
@@ -118,6 +117,18 @@ def get_demographics_info(column, countries):
     return demographics
 
 def get_multiple_info(url, countries,column):
+    """
+    Get specific information for each country in the given list from the given Wikipedia page.
+
+    :param url: The URL of the Wikipedia page to scrape.
+    :type url: str
+    :param countries: A list of strings representing the names of countries.
+    :type countries: list
+    :param column: The column number or name for the desired information on the Wikipedia page.
+    :type column: int or str
+    :returns: A dictionary mapping country names to the desired information.
+    :rtype: dict
+    """
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
@@ -128,12 +139,12 @@ def get_multiple_info(url, countries,column):
         if column == "Neigbouring countries": country_td = tds[1]
         else: country_td = tds[0]
         anchors = country_td.select("a[href]")
-        if not is_valid_anchor(anchors): continue
+        if not anchors_are_valid(anchors): continue
         anchor = anchors[0]
         country = anchor.get("title")
         if country not in countries: continue
         td_info = anchor.find_parent("td")
-        column_number = get_col_number(column)
+        column_number = get_column_number(column)
         while column_number > 0:
             td_info = td_info.find_next_sibling("td")
             column_number -= 1
@@ -153,71 +164,17 @@ def get_multiple_info(url, countries,column):
             print("No multiple info for {} with {}".format(country,column))
     return data
 
-def format_country_name(country):
-    if country == "Bahamas": return "The Bahamas"
-    if country == "Bahamas": return "The Bahamas"
-    if country == "Gambia": return "The Gambia"
-    if country == "Georgia": return "Georgia (country)"
-    if country == "Ireland": return "Republic of Ireland"
-    if country == "Artsakh": return "Republic of Artsakh"
-    return country
-
-def format_languages(languages):
-    if not languages: return []
-    if languages[0].startswith("None") or languages[0].strip()=='':
-        return []
-    if languages[0].find("languages - ") != -1:
-            multiple_languages = languages[0][languages[0].find("languages - ")+12:]
-            languages = multiple_languages.split(", ")
-    for i in range(len(languages)):
-        languages[i] = languages[i].strip()
-        if languages[i].find("[")!= -1:
-           languages[i] = languages[i][:languages[i].find("[")]
-        if languages[i].find("(") != -1:
-            languages[i] = languages[i][:languages[i].find("(")]
-        if languages[i].find("language") != -1:
-            languages[i] = languages[i].replace(" language","")
-        if languages[i].find(" and ") != -1:
-            languages[i] = languages[i].replace(" and ","")
-        if (languages[i].find("dialects") != -1
-                or languages[i].find("see ") != -1 
-                or languages[i].find("Languages of") != -1):
-            del languages[i]
-            continue
-        if languages[i].find("in ") != -1:
-            languages[i] = languages[i].replace("in ","")
-        if languages[i].find(" people") != -1:
-            languages[i] = languages[i].replace(" people","")
-        languages[i] = languages[i].strip()
-        if languages[i].find("\n") != -1:
-            languages[i] = languages[i].replace("\n"," ")
-    if not languages:
-        return []
-    if languages[0].strip()=='':
-        return []
-    if languages[0].find("Regional/State")!= -1:
-        return []
-    return languages
-
-def get_languages_from_td(td, country, countries):
-    ul = td.find("ul")
-    if ul:
-        for li in ul.find_all("li"):
-            if li.text.startswith("None"): break
-            if li.find("a[title]"):
-                countries[country].append(li.a.get("title"))
-            else:
-                countries[country].append(li.text)
-    else:
-        if td.find("p"): 
-            td = td.find("p")
-        if td.next_element.name == "a":
-                countries[country].append(td.next_element.get("title"))
-        else:
-            countries[country].append(td.next_element.text)
-    return countries[country]
-
 def get_languages(column, countries):
+    """
+    Get a list of languages by given column for each country in the given list.
+
+    :param column: The column number for the language information on the Wikipedia page.
+    :type column: int
+    :param countries: A list of strings representing the names of countries.
+    :type countries: list
+    :returns: A dictionary mapping country names to lists of official languages.
+    :rtype: dict
+    """
     url = "https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory"
     code = requests.get(url)
     plain = code.text
@@ -228,15 +185,15 @@ def get_languages(column, countries):
         if len(tds) < 2: continue
         country_td = tds[0]
         anchors = country_td.select("a[href]")
-        if not is_valid_anchor(anchors): continue
+        if not anchors_are_valid(anchors): continue
         anchor = anchors[0]
         country = anchor.text
         if country not in countries:
-            country = format_country_name(country)
+            country = normalize_country_name(country)
             if country not in countries: continue
         td_info = anchor.find_parent("td")
 
-        column_number = get_col_number(column)
+        column_number = get_column_number(column)
         while column_number > 0:
             td_info = td_info.find_next_sibling("td")
             column_number -= 1
@@ -250,7 +207,14 @@ def get_languages(column, countries):
             print("No language info for {} with {}".format(country,column))
     return countries
 
-def init_countries(url):
+def init_countries():
+    """
+    Initialize a list of countries by scraping Wikipedia.
+
+    :returns: A list of strings representing the names of countries.
+    :rtype: list
+    """
+    url = "https://en.wikipedia.org/wiki/List_of_sovereign_states"
     code = requests.get(url)
     plain = code.text
     soup = BeautifulSoup(plain, "html5lib")
@@ -258,12 +222,21 @@ def init_countries(url):
     countries = []
     for anchor in anchors:
         country = anchor.get("title")
+        # special case
         if country == "Kingdom of the Netherlands" : country = "Netherlands"
         countries.append(country)
     return countries
 
 def crawl():
-    countries = init_countries("https://en.wikipedia.org/wiki/List_of_sovereign_states")
+    """
+    Crawl the Wikipedia websites for the data on the countries and their properties.
+
+    :returns: A list with the countries, capitals, population, area, density, neighbouring countries, time zones,
+            constitutional form, official languages, regional languages, minority languages, national languages, and
+            widely spoken languages.
+    :rtype: list
+    """
+    countries = init_countries()
     capitals = get_capitals(countries)
     population = get_demographics_info("Population", countries)
     area = get_demographics_info("Area", countries)
@@ -280,6 +253,3 @@ def crawl():
     return [countries, capitals, population, area, density, neigbouring_countries,
             time_zones, constitutional_form, official_languages, regional_languages,
             minority_languages, national_languages, widely_spoken_languages]
-
- 
-  
