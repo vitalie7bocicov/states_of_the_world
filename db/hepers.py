@@ -19,16 +19,13 @@ def create_response(query_result):
 
 def format_query_result(query_result):
     """
-    Formats the query result into a list of unique tuples, where each tuple contains a
-    country name as the first element and other properties of the this country.
-    This function removes duplicate country names. If a country has more than one
-    property, the properties are stored in a list.
-    
+    Formats the query result so that countries that have multiple properties,
+    appearing on multiple lines, are reduced to a single line with all properties.
+
     :param query_result: A list of tuples, where each tuple contains a country name
                          and a property.
-    :type query_result: list[tuple[str, str]]
-    :return: A list of unique tuples, where each tuple contains a country name as the first
-             element and a list of properties.
+    :return: A list oftuples, where each tuple contains a country name as the first
+             element and a list of its properties.
     :rtype: list[tuple[str, list[str]]]
     """
     result = []
