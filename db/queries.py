@@ -1,23 +1,5 @@
 from .db import *
-
-def create_response(query_result):
-    """
-    Create a response string from the given query result.
-
-    :param query_result: The result of a query to a MySQL database.
-    :type query_result: list
-    :returns: A string representation of the query result.
-    :rtype: str
-    """
-    response = ""
-    for result in query_result:
-        for index,value in enumerate(result):
-            response += f"{value}"
-            if index < len(result) - 1:
-                response += ","
-            else:
-                response += "\n"
-    return response
+from .hepers import *
 
 def get_top_10_by_property(column):
     """
@@ -55,14 +37,17 @@ def get_all_capitals():
     """
     Get the name and capital of all countries from the 'states' and 'capitals' tables.
 
-    :returns: A string with the name and capital of all countries.
+    :returns: A string with the name and capitals of all countries.
     :rtype: str
     :raises Error: If there is an error executing the SELECT query.
     """
     connection = create_server_connection()
     query = "SELECT states.NAME,capitals.NAME FROM states JOIN capitals on states.ID=capitals.ID;"
+    query_result = execute_select(connection,query)
+    result = format_query_result(query_result)
+    print(result)
     response = f"NAME,CAPITAL:\n"
-    response += create_response(execute_select(connection,query))
+    response += create_response(result)
     connection.close()
     return response
 
@@ -95,8 +80,9 @@ def get_all_neighbouring_countries():
     """
     connection = create_server_connection()
     query = "SELECT states.NAME, (select states.NAME from states where ID=neighbouring_countries.ID2) from states JOIN neighbouring_countries ON neighbouring_countries.ID1=states.ID;"
+    query_result = format_query_result(execute_select(connection,query))
     response = f"NAME,NEIGHBOURING COUNTRIES:\n"
-    response += create_response(execute_select(connection,query))
+    response += create_response(query_result)
     connection.close()
     return response
 
@@ -112,8 +98,9 @@ def get_all_languages(table):
     """
     connection = create_server_connection()
     query = f"SELECT states.NAME, {table}.LANGUAGE FROM states JOIN {table} on states.ID={table}.ID;"
+    query_result = format_query_result(execute_select(connection,query))
     response = f"NAME,{table.upper()}:\n"
-    response += create_response(execute_select(connection,query))
+    response += create_response(query_result)
     connection.close()
     return response
 
@@ -127,8 +114,9 @@ def get_all_time_zones():
     """
     connection = create_server_connection()
     query = "SELECT states.NAME, time_zones.TIME_ZONE FROM states JOIN time_zones on states.ID=time_zones.ID;"
+    query_result = format_query_result(execute_select(connection,query))
     response = f"NAME,TIME ZONES:\n"
-    response += create_response(execute_select(connection,query))
+    response += create_response(query_result)
     connection.close()
     return response
 
@@ -212,7 +200,8 @@ def get_countries_with_more_than_1_capital():
     """
     connection = create_server_connection()
     query = "SELECT states.NAME,capitals.NAME FROM states JOIN capitals ON capitals.ID=states.ID where states.ID IN (SELECT capitals.ID FROM capitals group by capitals.ID  HAVING COUNT(capitals.ID)>1);"
+    query_result = format_query_result(execute_select(connection,query))
     response = f"NAME,CAPITAL: (Countries with more than 1 capital)\n"
-    response += create_response(execute_select(connection,query))
+    response += create_response(query_result)
     connection.close()
     return response

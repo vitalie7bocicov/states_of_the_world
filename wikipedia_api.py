@@ -37,17 +37,7 @@ def top_10_by_density():
 def countries():
   return get_all_countries()
 
-@app.get("/countries/{country}")
-def country(country):
-  """
-  Get the properties of the given country.
 
-  :param country: The name of the country.
-  :type country: str
-  :returns: A string with the properties of the given country.
-  :rtype: str
-  """
-  return get_country(country)
 
 @app.get("/countries/capitals")
 def countries_capitals():
@@ -270,3 +260,15 @@ def countries_with_more_than_1_capital():
   :rtype: str
   """
   return get_countries_with_more_than_1_capital()
+
+@app.get("/countries/{country}")
+def country(country):
+  """
+  Get the properties of the given country.
+
+  :param country: The name of the country.
+  :type country: str
+  :returns: A string with the properties of the given country.
+  :rtype: str
+  """
+  return get_country(country)
