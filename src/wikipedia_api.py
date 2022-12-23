@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from  db.queries import *
 from db.queries import *
-app = FastAPI()
+import uvicorn
 
+app = FastAPI()
 @app.get("/top_10_countries_by_population")
 def top_10_by_population():
   """
@@ -34,11 +35,17 @@ def top_10_by_density():
   return get_top_10_by_property("DENSITY")
 
 @app.get("/countries")
-def countries():
-  return get_all_countries()
+def countries(save=False):
+  """
+  Get a list of all countries.
 
-
-
+  :param save: Whether to save the list of countries to a file.
+  :type save: bool
+  :return: A list of countries.
+  :rtype: list[str]
+  """
+  return get_all_countries(save)
+ 
 @app.get("/countries/capitals")
 def countries_capitals():
   """
@@ -272,3 +279,6 @@ def country(country):
   :rtype: str
   """
   return get_country(country)
+
+if __name__ == "__main__":
+  uvicorn.run("wikipedia_api:app", port=8000, log_level="info")
