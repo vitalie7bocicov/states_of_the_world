@@ -36,8 +36,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -106,6 +109,19 @@
         <span class="n">country_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">])</span>
         <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">country_list</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="save_to_file"><a class="viewcode-back" href="../../db.html#db.hepers.save_to_file">[docs]</a><span class="k">def</span> <span class="nf">save_to_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save the given data to a file with the given name.</span>
+
+<span class="sd">    :param file_name: The name of the file to be created.</span>
+<span class="sd">    :type file_name: str</span>
+<span class="sd">    :param data: The data to be saved to the file.</span>
+<span class="sd">    :type data: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+    
 </pre></div>
 
            </div>

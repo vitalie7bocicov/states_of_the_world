@@ -36,8 +36,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -83,19 +86,23 @@
     <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">response</span></div>
 
-<div class="viewcode-block" id="get_all_countries"><a class="viewcode-back" href="../../db.html#db.queries.get_all_countries">[docs]</a><span class="k">def</span> <span class="nf">get_all_countries</span><span class="p">():</span>
+<div class="viewcode-block" id="get_all_countries"><a class="viewcode-back" href="../../db.html#db.queries.get_all_countries">[docs]</a><span class="k">def</span> <span class="nf">get_all_countries</span><span class="p">(</span><span class="n">save</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get all countries and their properties from the &#39;states&#39; table.</span>
+<span class="sd">    Get a list of all countries from the &#39;states&#39; table.</span>
 
-<span class="sd">    :returns: A string with all countries and their properties.</span>
+<span class="sd">    :param save: Whether to save the list of countries to a file.</span>
+<span class="sd">    :type save: bool</span>
+<span class="sd">    :returns: A string with the name, population, area, density and constitutional form of all countries.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    :raises Error: If there is an error executing the SELECT query.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">connection</span> <span class="o">=</span> <span class="n">create_server_connection</span><span class="p">()</span>
     <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL_FORM FROM states&quot;</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;NAME,POPULATION,AREA,DENSITY,CONSITUTIONAL FORM:</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL FORM:</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">response</span> <span class="o">+=</span> <span class="n">create_response</span><span class="p">(</span><span class="n">execute_select</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="n">query</span><span class="p">))</span>
     <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">save_to_file</span><span class="p">(</span><span class="s2">&quot;countries&quot;</span><span class="p">,</span><span class="n">response</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="get_all_capitals"><a class="viewcode-back" href="../../db.html#db.queries.get_all_capitals">[docs]</a><span class="k">def</span> <span class="nf">get_all_capitals</span><span class="p">():</span>
@@ -110,7 +117,6 @@
     <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT states.NAME,capitals.NAME FROM states JOIN capitals on states.ID=capitals.ID;&quot;</span>
     <span class="n">query_result</span> <span class="o">=</span> <span class="n">execute_select</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span><span class="n">query</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">format_query_result</span><span class="p">(</span><span class="n">query_result</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;NAME,CAPITAL:</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">response</span> <span class="o">+=</span> <span class="n">create_response</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
     <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

@@ -19,7 +19,9 @@
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="populate_db module" href="populate_db.html" />
+    <link rel="prev" title="crawler package" href="crawler.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,50 +39,58 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">db package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-db.db">db.db module</a><ul>
-<li><a class="reference internal" href="#db.db.create_server_connection"><code class="docutils literal notranslate"><span class="pre">create_server_connection()</span></code></a></li>
-<li><a class="reference internal" href="#db.db.execute_insert"><code class="docutils literal notranslate"><span class="pre">execute_insert()</span></code></a></li>
-<li><a class="reference internal" href="#db.db.execute_select"><code class="docutils literal notranslate"><span class="pre">execute_select()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crawler.html">crawler package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">db package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-db.db">db.db module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#db.db.create_server_connection"><code class="docutils literal notranslate"><span class="pre">create_server_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.db.execute_insert"><code class="docutils literal notranslate"><span class="pre">execute_insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.db.execute_select"><code class="docutils literal notranslate"><span class="pre">execute_select()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-db.hepers">db.hepers module</a><ul>
-<li><a class="reference internal" href="#db.hepers.create_response"><code class="docutils literal notranslate"><span class="pre">create_response()</span></code></a></li>
-<li><a class="reference internal" href="#db.hepers.format_query_result"><code class="docutils literal notranslate"><span class="pre">format_query_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-db.hepers">db.hepers module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#db.hepers.create_response"><code class="docutils literal notranslate"><span class="pre">create_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.hepers.format_query_result"><code class="docutils literal notranslate"><span class="pre">format_query_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.hepers.save_to_file"><code class="docutils literal notranslate"><span class="pre">save_to_file()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-db.populate">db.populate module</a><ul>
-<li><a class="reference internal" href="#db.populate.populate_capitals"><code class="docutils literal notranslate"><span class="pre">populate_capitals()</span></code></a></li>
-<li><a class="reference internal" href="#db.populate.populate_languages"><code class="docutils literal notranslate"><span class="pre">populate_languages()</span></code></a></li>
-<li><a class="reference internal" href="#db.populate.populate_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">populate_neighbouring_countries()</span></code></a></li>
-<li><a class="reference internal" href="#db.populate.populate_states"><code class="docutils literal notranslate"><span class="pre">populate_states()</span></code></a></li>
-<li><a class="reference internal" href="#db.populate.populate_time_zones"><code class="docutils literal notranslate"><span class="pre">populate_time_zones()</span></code></a></li>
-<li><a class="reference internal" href="#db.populate.replace_None_with_NULL"><code class="docutils literal notranslate"><span class="pre">replace_None_with_NULL()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-db.populate">db.populate module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.populate_capitals"><code class="docutils literal notranslate"><span class="pre">populate_capitals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.populate_languages"><code class="docutils literal notranslate"><span class="pre">populate_languages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.populate_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">populate_neighbouring_countries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.populate_states"><code class="docutils literal notranslate"><span class="pre">populate_states()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.populate_time_zones"><code class="docutils literal notranslate"><span class="pre">populate_time_zones()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.populate.replace_None_with_NULL"><code class="docutils literal notranslate"><span class="pre">replace_None_with_NULL()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-db.queries">db.queries module</a><ul>
-<li><a class="reference internal" href="#db.queries.get_all_by_property"><code class="docutils literal notranslate"><span class="pre">get_all_by_property()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_all_capitals"><code class="docutils literal notranslate"><span class="pre">get_all_capitals()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_all_countries"><code class="docutils literal notranslate"><span class="pre">get_all_countries()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_all_languages"><code class="docutils literal notranslate"><span class="pre">get_all_languages()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_all_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">get_all_neighbouring_countries()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_all_time_zones"><code class="docutils literal notranslate"><span class="pre">get_all_time_zones()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_countries_by_constitutional_form"><code class="docutils literal notranslate"><span class="pre">get_countries_by_constitutional_form()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_countries_by_language"><code class="docutils literal notranslate"><span class="pre">get_countries_by_language()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_countries_by_time_zone"><code class="docutils literal notranslate"><span class="pre">get_countries_by_time_zone()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_countries_with_more_than_1_capital"><code class="docutils literal notranslate"><span class="pre">get_countries_with_more_than_1_capital()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_country"><code class="docutils literal notranslate"><span class="pre">get_country()</span></code></a></li>
-<li><a class="reference internal" href="#db.queries.get_top_10_by_property"><code class="docutils literal notranslate"><span class="pre">get_top_10_by_property()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-db.queries">db.queries module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_by_property"><code class="docutils literal notranslate"><span class="pre">get_all_by_property()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_capitals"><code class="docutils literal notranslate"><span class="pre">get_all_capitals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_countries"><code class="docutils literal notranslate"><span class="pre">get_all_countries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_languages"><code class="docutils literal notranslate"><span class="pre">get_all_languages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">get_all_neighbouring_countries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_all_time_zones"><code class="docutils literal notranslate"><span class="pre">get_all_time_zones()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_countries_by_constitutional_form"><code class="docutils literal notranslate"><span class="pre">get_countries_by_constitutional_form()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_countries_by_language"><code class="docutils literal notranslate"><span class="pre">get_countries_by_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_countries_by_time_zone"><code class="docutils literal notranslate"><span class="pre">get_countries_by_time_zone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_countries_with_more_than_1_capital"><code class="docutils literal notranslate"><span class="pre">get_countries_with_more_than_1_capital()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_country"><code class="docutils literal notranslate"><span class="pre">get_country()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#db.queries.get_top_10_by_property"><code class="docutils literal notranslate"><span class="pre">get_top_10_by_property()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-db">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="populate_db.html">populate_db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wikipedia_api.html">wikipedia_api module</a></li>
 </ul>
 </li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -95,6 +105,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
       <li class="breadcrumb-item active">db package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/db.rst.txt" rel="nofollow"> View page source</a>
@@ -205,6 +216,20 @@ element and a list of its properties.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list[tuple[str, list[str]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.hepers.save_to_file">
+<span class="sig-prename descclassname"><span class="pre">db.hepers.</span></span><span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/hepers.html#save_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.hepers.save_to_file" title="Permalink to this definition"></a></dt>
+<dd><p>Save the given data to a file with the given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> (<em>str</em>) – The name of the file to be created.</p></li>
+<li><p><strong>data</strong> (<em>str</em>) – The data to be saved to the file.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -363,17 +388,20 @@ element and a list of its properties.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="db.queries.get_all_countries">
-<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_countries" title="Permalink to this definition"></a></dt>
-<dd><p>Get all countries and their properties from the ‘states’ table.</p>
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_countries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of all countries from the ‘states’ table.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A string with all countries and their properties.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>save</strong> (<em>bool</em>) – Whether to save the list of countries to a file.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>str</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name, population, area, density and constitutional form of all countries.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -561,7 +589,10 @@ element and a list of its properties.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="crawler.html" class="btn btn-neutral float-left" title="crawler package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="populate_db.html" class="btn btn-neutral float-right" title="populate_db module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
