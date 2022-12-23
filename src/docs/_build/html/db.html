@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>db package &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">db package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-db.db">db.db module</a><ul>
+<li><a class="reference internal" href="#db.db.create_server_connection"><code class="docutils literal notranslate"><span class="pre">create_server_connection()</span></code></a></li>
+<li><a class="reference internal" href="#db.db.execute_insert"><code class="docutils literal notranslate"><span class="pre">execute_insert()</span></code></a></li>
+<li><a class="reference internal" href="#db.db.execute_select"><code class="docutils literal notranslate"><span class="pre">execute_select()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-db.hepers">db.hepers module</a><ul>
+<li><a class="reference internal" href="#db.hepers.create_response"><code class="docutils literal notranslate"><span class="pre">create_response()</span></code></a></li>
+<li><a class="reference internal" href="#db.hepers.format_query_result"><code class="docutils literal notranslate"><span class="pre">format_query_result()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-db.populate">db.populate module</a><ul>
+<li><a class="reference internal" href="#db.populate.populate_capitals"><code class="docutils literal notranslate"><span class="pre">populate_capitals()</span></code></a></li>
+<li><a class="reference internal" href="#db.populate.populate_languages"><code class="docutils literal notranslate"><span class="pre">populate_languages()</span></code></a></li>
+<li><a class="reference internal" href="#db.populate.populate_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">populate_neighbouring_countries()</span></code></a></li>
+<li><a class="reference internal" href="#db.populate.populate_states"><code class="docutils literal notranslate"><span class="pre">populate_states()</span></code></a></li>
+<li><a class="reference internal" href="#db.populate.populate_time_zones"><code class="docutils literal notranslate"><span class="pre">populate_time_zones()</span></code></a></li>
+<li><a class="reference internal" href="#db.populate.replace_None_with_NULL"><code class="docutils literal notranslate"><span class="pre">replace_None_with_NULL()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-db.queries">db.queries module</a><ul>
+<li><a class="reference internal" href="#db.queries.get_all_by_property"><code class="docutils literal notranslate"><span class="pre">get_all_by_property()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_all_capitals"><code class="docutils literal notranslate"><span class="pre">get_all_capitals()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_all_countries"><code class="docutils literal notranslate"><span class="pre">get_all_countries()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_all_languages"><code class="docutils literal notranslate"><span class="pre">get_all_languages()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_all_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">get_all_neighbouring_countries()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_all_time_zones"><code class="docutils literal notranslate"><span class="pre">get_all_time_zones()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_countries_by_constitutional_form"><code class="docutils literal notranslate"><span class="pre">get_countries_by_constitutional_form()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_countries_by_language"><code class="docutils literal notranslate"><span class="pre">get_countries_by_language()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_countries_by_time_zone"><code class="docutils literal notranslate"><span class="pre">get_countries_by_time_zone()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_countries_with_more_than_1_capital"><code class="docutils literal notranslate"><span class="pre">get_countries_with_more_than_1_capital()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_country"><code class="docutils literal notranslate"><span class="pre">get_country()</span></code></a></li>
+<li><a class="reference internal" href="#db.queries.get_top_10_by_property"><code class="docutils literal notranslate"><span class="pre">get_top_10_by_property()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-db">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">db package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/db.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="db-package">
+<h1>db package<a class="headerlink" href="#db-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-db.db">
+<span id="db-db-module"></span><h2>db.db module<a class="headerlink" href="#module-db.db" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="db.db.create_server_connection">
+<span class="sig-prename descclassname"><span class="pre">db.db.</span></span><span class="sig-name descname"><span class="pre">create_server_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/db.html#create_server_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.db.create_server_connection" title="Permalink to this definition"></a></dt>
+<dd><p>Create a connection to the MySQL server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A MySQL connection object.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>mysql.connector.connect</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error connecting to the MySQL server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.db.execute_insert">
+<span class="sig-prename descclassname"><span class="pre">db.db.</span></span><span class="sig-name descname"><span class="pre">execute_insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/db.html#execute_insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.db.execute_insert" title="Permalink to this definition"></a></dt>
+<dd><p>Execute an INSERT statement on the given connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> (<em>mysql.connector.connect</em>) – A MySQL connection object.</p></li>
+<li><p><strong>query</strong> (<em>str</em>) – The INSERT statement to be executed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the INSERT statement.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.db.execute_select">
+<span class="sig-prename descclassname"><span class="pre">db.db.</span></span><span class="sig-name descname"><span class="pre">execute_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/db.html#execute_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.db.execute_select" title="Permalink to this definition"></a></dt>
+<dd><p>Execute a SELECT statement on the given connection and return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> (<em>mysql.connector.connect</em>) – A MySQL connection object.</p></li>
+<li><p><strong>query</strong> (<em>str</em>) – The SELECT statement to be executed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of tuples representing the rows returned by the SELECT statement.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT statement.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-db.hepers">
+<span id="db-hepers-module"></span><h2>db.hepers module<a class="headerlink" href="#module-db.hepers" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="db.hepers.create_response">
+<span class="sig-prename descclassname"><span class="pre">db.hepers.</span></span><span class="sig-name descname"><span class="pre">create_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/hepers.html#create_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.hepers.create_response" title="Permalink to this definition"></a></dt>
+<dd><p>Create a response string from the given query result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query_result</strong> (<em>list</em>) – The result of a query to a MySQL database.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string representation of the query result.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.hepers.format_query_result">
+<span class="sig-prename descclassname"><span class="pre">db.hepers.</span></span><span class="sig-name descname"><span class="pre">format_query_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/hepers.html#format_query_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.hepers.format_query_result" title="Permalink to this definition"></a></dt>
+<dd><p>Formats the query result so that countries that have multiple properties,
+appearing on multiple lines, are reduced to a single line with all properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query_result</strong> – A list of tuples, where each tuple contains a country name
+and a property.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list oftuples, where each tuple contains a country name as the first
+element and a list of its properties.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[tuple[str, list[str]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-db.populate">
+<span id="db-populate-module"></span><h2>db.populate module<a class="headerlink" href="#module-db.populate" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.populate_capitals">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">populate_capitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capitals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#populate_capitals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.populate_capitals" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the ‘capitals’ table in the MySQL database with data from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>capitals</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of capital cities.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the ‘capitals’ table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.populate_languages">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">populate_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#populate_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.populate_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the given table in the MySQL database with data from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of languages.</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be populated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the given table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.populate_neighbouring_countries">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">populate_neighbouring_countries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbouring_countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#populate_neighbouring_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.populate_neighbouring_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the ‘neighbouring_countries’ table in the MySQL database with data from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>neighbouring_countries</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of neighbouring countries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the ‘neighbouring_countries’ table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.populate_states">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">populate_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constitutional_form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#populate_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.populate_states" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the ‘states’ table in the MySQL database with data from the given dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>population</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing population data.</p></li>
+<li><p><strong>area</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing area data.</p></li>
+<li><p><strong>density</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing density data.</p></li>
+<li><p><strong>constitutional_form</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing constitutional form data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the ‘states’ table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.populate_time_zones">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">populate_time_zones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_zones</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#populate_time_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.populate_time_zones" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the ‘time_zones’ table in the MySQL database with data from the given dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>time_zones</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of time zones.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the ‘time_zones’ table.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.populate.replace_None_with_NULL">
+<span class="sig-prename descclassname"><span class="pre">db.populate.</span></span><span class="sig-name descname"><span class="pre">replace_None_with_NULL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/populate.html#replace_None_with_NULL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.populate.replace_None_with_NULL" title="Permalink to this definition"></a></dt>
+<dd><p>Replace all occurrences of <cite>None</cite> in the given dictionary with the string ‘NULL’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated dictionary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-db.queries">
+<span id="db-queries-module"></span><h2>db.queries module<a class="headerlink" href="#module-db.queries" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_by_property">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_by_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">property</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_by_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_by_property" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and value of a property for all countries from the ‘states’ table, sorted in the specified order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>property</strong> (<em>str</em>) – The name of the property to be retrieved.</p></li>
+<li><p><strong>order</strong> (<em>str</em>) – The order in which the results should be sorted. Either ‘ASC’ for ascending or ‘DESC’ for descending.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name and value of the specified property for all countries, sorted in the specified order.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_capitals">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_capitals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_capitals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_capitals" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and capital of all countries from the ‘states’ and ‘capitals’ tables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the name and capitals of all countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_countries">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their properties from the ‘states’ table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their properties.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_languages">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and language of all countries from the ‘states’ and the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – The name of the table to be used for retrieving the language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name and language of all countries.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_neighbouring_countries">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_neighbouring_countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_neighbouring_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_neighbouring_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and neighbouring countries of all countries from the ‘states’ and ‘neighbouring_countries’ tables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the name and neighbouring countries of all countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_all_time_zones">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_all_time_zones</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_all_time_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_all_time_zones" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and time zone of all countries from the ‘states’ and ‘time_zones’ tables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the name and time zone of all countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_countries_by_constitutional_form">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_countries_by_constitutional_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constitutional_form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_countries_by_constitutional_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_countries_by_constitutional_form" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and constitutional form of all countries from the ‘states’ table that have the given constitutional form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>constitutional_form</strong> (<em>str</em>) – The constitutional form to be used for filtering.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name and constitutional form of all countries that have the given constitutional form.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_countries_by_language">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_countries_by_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_countries_by_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_countries_by_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and language of all countries from the ‘states’ and the given table that have the given language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> (<em>str</em>) – The name of the table to be used for retrieving the language.</p></li>
+<li><p><strong>language</strong> (<em>str</em>) – The language to be used for filtering.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name and language of all countries that have the given language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_countries_by_time_zone">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_countries_by_time_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_zone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_countries_by_time_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_countries_by_time_zone" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and time zone of all countries from the ‘states’ and ‘time_zones’ tables that have the given time zone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_zone</strong> (<em>str</em>) – The time zone to be used for filtering.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the name and time zone of all countries that have the given time zone.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_countries_with_more_than_1_capital">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_countries_with_more_than_1_capital</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_countries_with_more_than_1_capital"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_countries_with_more_than_1_capital" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and capital of all countries from the ‘states’ and ‘capitals’ tables that have more than 1 capital.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the name and capital of all countries that have more than 1 capital.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_country">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_country</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_country"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_country" title="Permalink to this definition"></a></dt>
+<dd><p>Get the properties of the given country from the ‘states’ table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>country</strong> (<em>str</em>) – The name of the country to be retrieved.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the properties of the given country.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="db.queries.get_top_10_by_property">
+<span class="sig-prename descclassname"><span class="pre">db.queries.</span></span><span class="sig-name descname"><span class="pre">get_top_10_by_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/db/queries.html#get_top_10_by_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#db.queries.get_top_10_by_property" title="Permalink to this definition"></a></dt>
+<dd><p>Get the top 10 countries by the given property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>column</strong> (<em>str</em>) – The name of the property to be used for ranking.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the top 10 countries by the given property.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error executing the SELECT query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-db">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-db" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>populate_db &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">populate_db</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for populate_db</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">crawler.crawler</span> <span class="kn">import</span> <span class="n">crawl</span>
+<span class="kn">from</span> <span class="nn">db.db</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">db.populate</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">wikipedia_api</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="populate_db"><a class="viewcode-back" href="../populate_db.html#populate_db.populate_db">[docs]</a><span class="k">def</span> <span class="nf">populate_db</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">capitals</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> 
+                <span class="n">area</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">neighbouring_countries</span><span class="p">,</span> 
+                <span class="n">time_zones</span><span class="p">,</span> <span class="n">constitutional_form</span><span class="p">,</span> <span class="n">official_languages</span><span class="p">,</span>
+                <span class="n">regional_languages</span><span class="p">,</span> <span class="n">minority_languages</span><span class="p">,</span> <span class="n">national_languages</span><span class="p">,</span> 
+                <span class="n">widely_spoken_languages</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Populate the MySQL database with data from the given dictionaries.</span>
+
+<span class="sd">    :param countries: A list of countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :param capitals: A dictionary with keys representing countries and values representing lists of capital cities.</span>
+<span class="sd">    :type capitals: dict</span>
+<span class="sd">    :param population: A dictionary with keys representing countries and values representing population data.</span>
+<span class="sd">    :type population: dict</span>
+<span class="sd">    :param area: A dictionary with keys representing countries and values representing area data.</span>
+<span class="sd">    :type area: dict</span>
+<span class="sd">    :param density: A dictionary with keys representing countries and values representing density data.</span>
+<span class="sd">    :type density: dict</span>
+<span class="sd">    :param neighbouring_countries: A dictionary with keys representing countries and values representing lists of neighbouring countries.</span>
+<span class="sd">    :type neighbouring_countries: dict</span>
+<span class="sd">    :param time_zones: A dictionary with keys representing countries and values representing lists of time zones.</span>
+<span class="sd">    :type time_zones: dict</span>
+<span class="sd">    :param constitutional_form: A dictionary with keys representing countries and values representing constitutional form data.</span>
+<span class="sd">    :type constitutional_form: dict</span>
+<span class="sd">    :param official_languages: A dictionary with keys representing countries and values representing lists of official languages.</span>
+<span class="sd">    :type official_languages: dict</span>
+<span class="sd">    :param regional_languages: A dictionary with keys representing countries and values representing lists of regional languages.</span>
+<span class="sd">    :type regional_languages: dict</span>
+<span class="sd">    :param minority_languages: A dictionary with keys representing countries and values representing lists of minority languages.</span>
+<span class="sd">    :type minority_languages: dict</span>
+<span class="sd">    :param national_languages: A dictionary with keys representing countries and values representing lists of national languages.</span>
+<span class="sd">    :type national_languages: dict</span>
+<span class="sd">    :param widely_spoken_languages: A dictionary with keys representing countries and values representing lists of widely spoken languages.</span>
+<span class="sd">    :type widely_spoken_languages: dict</span>
+<span class="sd">    :raises Error: If there is an error inserting data into the database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">populate_states</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">constitutional_form</span><span class="p">)</span>
+    <span class="n">populate_capitals</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">capitals</span><span class="p">)</span>
+    <span class="n">populate_neighbouring_countries</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">neighbouring_countries</span><span class="p">)</span>
+    <span class="n">populate_time_zones</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">time_zones</span><span class="p">)</span>
+    <span class="n">populate_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">official_languages</span><span class="p">,</span> <span class="s2">&quot;official_languages&quot;</span><span class="p">)</span>
+    <span class="n">populate_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">regional_languages</span><span class="p">,</span> <span class="s2">&quot;regional_languages&quot;</span><span class="p">)</span>
+    <span class="n">populate_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">minority_languages</span><span class="p">,</span> <span class="s2">&quot;minority_languages&quot;</span><span class="p">)</span>
+    <span class="n">populate_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">national_languages</span><span class="p">,</span> <span class="s2">&quot;national_languages&quot;</span><span class="p">)</span>
+    <span class="n">populate_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">widely_spoken_languages</span><span class="p">,</span> <span class="s2">&quot;widely_spoken_languages&quot;</span><span class="p">)</span></div>
+   
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+     <span class="n">populate_db</span><span class="p">(</span><span class="o">*</span><span class="n">crawl</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

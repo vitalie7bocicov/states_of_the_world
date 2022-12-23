@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crawler.crawler &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">crawler.crawler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for crawler.crawler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="get_other_capitals"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.get_other_capitals">[docs]</a><span class="k">def</span> <span class="nf">get_other_capitals</span><span class="p">(</span><span class="n">capitals</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">countries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of capital cities for a given list of countries.</span>
+
+<span class="sd">    :param capitals: A list of capital cities for a given country.</span>
+<span class="sd">    :type capitals: list</span>
+<span class="sd">    :param tr: A BeautifulSoup object representing a table row.</span>
+<span class="sd">    :type tr: BeautifulSoup</span>
+<span class="sd">    :param td: A BeautifulSoup object representing a table cell.</span>
+<span class="sd">    :type td: BeautifulSoup</span>
+<span class="sd">    :param countries: A list of strings representing the names of the countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :returns: A list of capital cities for a given country.</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tr_sibling</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tr_sibling</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">capitals</span>
+    <span class="n">tds</span> <span class="o">=</span> <span class="n">tr_sibling</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tds</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">capitals</span>
+    <span class="n">td</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">anchors</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">anchors_are_valid</span><span class="p">(</span><span class="n">anchors</span><span class="p">):</span> 
+        <span class="k">return</span> <span class="n">capitals</span>
+    <span class="n">anchor</span> <span class="o">=</span> <span class="n">anchors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">capitals</span>
+    <span class="n">capitals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anchor</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">capitals</span></div>
+        
+<div class="viewcode-block" id="get_capitals"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.get_capitals">[docs]</a><span class="k">def</span> <span class="nf">get_capitals</span><span class="p">(</span><span class="n">countries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of capital cities for a given list of countries.</span>
+
+<span class="sd">    :param countries: A list of strings representing the names of the countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :returns: A dictionary mapping each country to a list of its capital cities.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_national_capitals&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">plain</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
+    <span class="n">capitals</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">country</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">):</span>
+        <span class="n">tds</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">country_td</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">anchors</span> <span class="o">=</span> <span class="n">country_td</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">anchors_are_valid</span><span class="p">(</span><span class="n">anchors</span><span class="p">):</span> <span class="k">continue</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="n">anchors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">country</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">country_td</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">find_parent</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="n">capital_td</span> <span class="o">=</span> <span class="n">country_td</span><span class="o">.</span><span class="n">find_previous_sibling</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">capital_td</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No capital information found for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># first capital</span>
+            <span class="n">capitals</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">capital_td</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">capitals</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_other_capitals</span><span class="p">(</span><span class="n">capitals</span><span class="p">[</span><span class="n">country</span><span class="p">],</span> <span class="n">tr</span><span class="p">,</span> <span class="n">capital_td</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>
+            <span class="c1"># special case for South Africa</span>
+            <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;South Africa&quot;</span><span class="p">:</span>
+                <span class="n">capitals</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_other_capitals</span><span class="p">(</span><span class="n">capitals</span><span class="p">[</span><span class="n">country</span><span class="p">],</span>
+                 <span class="n">tr</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">),</span> <span class="n">capital_td</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>   
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No capital information found for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">))</span>
+    <span class="c1"># special case for State of Palestine</span>
+    <span class="n">capitals</span><span class="p">[</span><span class="s2">&quot;State of Palestine&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">capitals</span><span class="p">[</span><span class="s2">&quot;Israel&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">capitals</span></div>
+
+<div class="viewcode-block" id="get_demographics_info"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.get_demographics_info">[docs]</a><span class="k">def</span> <span class="nf">get_demographics_info</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">countries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get demographic information for a list of countries from Wikipedia.</span>
+
+<span class="sd">    :param column: The column number or name for the desired information on the Wikipedia page.</span>
+<span class="sd">    :type column: int or str</span>
+<span class="sd">    :param countries: A list of strings representing the names of the countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :returns: A dictionary mapping each country to its demographic information as an integer.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_density&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">plain</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
+    <span class="n">demographics</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">country</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;th&quot;</span><span class="p">):</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">a</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">anchor</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">):</span> <span class="k">continue</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="n">country</span> <span class="o">=</span> <span class="n">clean_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="c1"># special case for Ireland</span>
+        <span class="k">if</span> <span class="n">country</span><span class="o">==</span><span class="s2">&quot;Ireland&quot;</span><span class="p">:</span> <span class="n">country</span> <span class="o">=</span> <span class="s2">&quot;Republic of Ireland&quot;</span>
+
+        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">td_info</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">find_parent</span><span class="p">(</span><span class="s2">&quot;th&quot;</span><span class="p">)</span>
+        <span class="n">column_number</span> <span class="o">=</span> <span class="n">get_column_number</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">column_number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">td_info</span> <span class="o">=</span> <span class="n">td_info</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+            <span class="n">column_number</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">td_info</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;No info for </span><span class="si">{}</span><span class="s2">, on column </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">column</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">demographics</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">td_info</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;No info for </span><span class="si">{}</span><span class="s2">, on column </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">column</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">demographics</span></div>
+
+<div class="viewcode-block" id="get_multiple_info"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.get_multiple_info">[docs]</a><span class="k">def</span> <span class="nf">get_multiple_info</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">countries</span><span class="p">,</span><span class="n">column</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get specific information for each country in the given list from the given Wikipedia page.</span>
+
+<span class="sd">    :param url: The URL of the Wikipedia page to scrape.</span>
+<span class="sd">    :type url: str</span>
+<span class="sd">    :param countries: A list of strings representing the names of countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :param column: The column number or name for the desired information on the Wikipedia page.</span>
+<span class="sd">    :type column: int or str</span>
+<span class="sd">    :returns: A dictionary mapping country names to the desired information.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">plain</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">country</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">):</span>
+        <span class="n">tds</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Neigbouring countries&quot;</span><span class="p">:</span> <span class="n">country_td</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">country_td</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">anchors</span> <span class="o">=</span> <span class="n">country_td</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">anchors_are_valid</span><span class="p">(</span><span class="n">anchors</span><span class="p">):</span> <span class="k">continue</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="n">anchors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">country</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">td_info</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">find_parent</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="n">column_number</span> <span class="o">=</span> <span class="n">get_column_number</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">column_number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">td_info</span> <span class="o">=</span> <span class="n">td_info</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+            <span class="n">column_number</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">td_info</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No multiple info for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">anchors</span> <span class="o">=</span> <span class="n">td_info</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Neigbouring countries&quot;</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">anchor</span> <span class="ow">in</span> <span class="n">anchors</span> <span class="k">if</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Time zones&quot;</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">anchor</span> <span class="ow">in</span> <span class="n">anchors</span> <span class="k">if</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;UTC&quot;</span><span class="p">)]</span>
+            <span class="k">elif</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Constitutional form&quot;</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="n">td_info</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No multiple info for </span><span class="si">{}</span><span class="s2"> with </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span><span class="n">column</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="get_languages"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.get_languages">[docs]</a><span class="k">def</span> <span class="nf">get_languages</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">countries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of languages by given column for each country in the given list.</span>
+
+<span class="sd">    :param column: The column number for the language information on the Wikipedia page.</span>
+<span class="sd">    :type column: int</span>
+<span class="sd">    :param countries: A list of strings representing the names of countries.</span>
+<span class="sd">    :type countries: list</span>
+<span class="sd">    :returns: A dictionary mapping country names to lists of official languages.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_official_languages_by_country_and_territory&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">plain</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
+    <span class="n">countries</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">country</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">):</span>
+        <span class="n">tds</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">country_td</span> <span class="o">=</span> <span class="n">tds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">anchors</span> <span class="o">=</span> <span class="n">country_td</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;a[href]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">anchors_are_valid</span><span class="p">(</span><span class="n">anchors</span><span class="p">):</span> <span class="k">continue</span>
+        <span class="n">anchor</span> <span class="o">=</span> <span class="n">anchors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">country</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+            <span class="n">country</span> <span class="o">=</span> <span class="n">normalize_country_name</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">country</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">td_info</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">find_parent</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+
+        <span class="n">column_number</span> <span class="o">=</span> <span class="n">get_column_number</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">column_number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">td_info</span> <span class="o">=</span> <span class="n">td_info</span><span class="o">.</span><span class="n">find_next_sibling</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+            <span class="n">column_number</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">td_info</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_languages_from_td</span><span class="p">(</span><span class="n">td_info</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>
+            <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="o">=</span> <span class="n">format_languages</span><span class="p">(</span><span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No language info for </span><span class="si">{}</span><span class="s2"> with </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">country</span><span class="p">,</span><span class="n">column</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">countries</span></div>
+
+<div class="viewcode-block" id="init_countries"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.init_countries">[docs]</a><span class="k">def</span> <span class="nf">init_countries</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize a list of countries by scraping Wikipedia.</span>
+
+<span class="sd">    :returns: A list of strings representing the names of countries.</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_sovereign_states&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">plain</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">plain</span><span class="p">,</span> <span class="s2">&quot;html5lib&quot;</span><span class="p">)</span>
+    <span class="n">anchors</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;td &gt; b &gt; a[href]&quot;</span><span class="p">)</span>
+    <span class="n">countries</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">anchor</span> <span class="ow">in</span> <span class="n">anchors</span><span class="p">:</span>
+        <span class="n">country</span> <span class="o">=</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="c1"># special case</span>
+        <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Kingdom of the Netherlands&quot;</span> <span class="p">:</span> <span class="n">country</span> <span class="o">=</span> <span class="s2">&quot;Netherlands&quot;</span>
+        <span class="n">countries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">countries</span></div>
+
+<div class="viewcode-block" id="crawl"><a class="viewcode-back" href="../../crawler.html#crawler.crawler.crawl">[docs]</a><span class="k">def</span> <span class="nf">crawl</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Crawl the Wikipedia websites for the data on the countries and their properties.</span>
+
+<span class="sd">    :returns: A list with the countries, capitals, population, area, density, neighbouring countries, time zones,</span>
+<span class="sd">            constitutional form, official languages, regional languages, minority languages, national languages, and</span>
+<span class="sd">            widely spoken languages.</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">countries</span> <span class="o">=</span> <span class="n">init_countries</span><span class="p">()</span>
+    <span class="n">capitals</span> <span class="o">=</span> <span class="n">get_capitals</span><span class="p">(</span><span class="n">countries</span><span class="p">)</span>
+    <span class="n">population</span> <span class="o">=</span> <span class="n">get_demographics_info</span><span class="p">(</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">get_demographics_info</span><span class="p">(</span><span class="s2">&quot;Area&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">get_demographics_info</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">)</span>
+    <span class="n">neigbouring_countries</span> <span class="o">=</span> <span class="n">get_multiple_info</span><span class="p">(</span><span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">,</span> <span class="s2">&quot;Neigbouring countries&quot;</span><span class="p">)</span>
+    <span class="n">time_zones</span> <span class="o">=</span> <span class="n">get_multiple_info</span><span class="p">(</span><span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_time_zones_by_country&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">,</span> <span class="s2">&quot;Time zones&quot;</span><span class="p">)</span>
+    <span class="n">constitutional_form</span> <span class="o">=</span> <span class="n">get_multiple_info</span><span class="p">(</span><span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_countries_by_system_of_government&quot;</span><span class="p">,</span> <span class="n">countries</span><span class="p">,</span> <span class="s2">&quot;Constitutional form&quot;</span><span class="p">)</span>
+    <span class="n">official_languages</span> <span class="o">=</span> <span class="n">get_languages</span><span class="p">(</span> <span class="s2">&quot;Official languages&quot;</span><span class="p">,</span><span class="n">countries</span><span class="p">)</span>
+    <span class="n">regional_languages</span> <span class="o">=</span> <span class="n">get_languages</span><span class="p">(</span> <span class="s2">&quot;Regional languages&quot;</span><span class="p">,</span><span class="n">countries</span><span class="p">)</span>
+    <span class="n">minority_languages</span> <span class="o">=</span> <span class="n">get_languages</span><span class="p">(</span> <span class="s2">&quot;Minority languages&quot;</span><span class="p">,</span><span class="n">countries</span><span class="p">)</span>
+    <span class="n">national_languages</span> <span class="o">=</span> <span class="n">get_languages</span><span class="p">(</span> <span class="s2">&quot;National languages&quot;</span><span class="p">,</span><span class="n">countries</span><span class="p">)</span>
+    <span class="n">widely_spoken_languages</span> <span class="o">=</span> <span class="n">get_languages</span><span class="p">(</span> <span class="s2">&quot;Widely spoken languages&quot;</span><span class="p">,</span><span class="n">countries</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">countries</span><span class="p">,</span> <span class="n">capitals</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">neigbouring_countries</span><span class="p">,</span>
+            <span class="n">time_zones</span><span class="p">,</span> <span class="n">constitutional_form</span><span class="p">,</span> <span class="n">official_languages</span><span class="p">,</span> <span class="n">regional_languages</span><span class="p">,</span>
+            <span class="n">minority_languages</span><span class="p">,</span> <span class="n">national_languages</span><span class="p">,</span> <span class="n">widely_spoken_languages</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

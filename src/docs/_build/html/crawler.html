@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crawler package &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">crawler package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-crawler.crawler">crawler.crawler module</a><ul>
+<li><a class="reference internal" href="#crawler.crawler.crawl"><code class="docutils literal notranslate"><span class="pre">crawl()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.get_capitals"><code class="docutils literal notranslate"><span class="pre">get_capitals()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.get_demographics_info"><code class="docutils literal notranslate"><span class="pre">get_demographics_info()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.get_languages"><code class="docutils literal notranslate"><span class="pre">get_languages()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.get_multiple_info"><code class="docutils literal notranslate"><span class="pre">get_multiple_info()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.get_other_capitals"><code class="docutils literal notranslate"><span class="pre">get_other_capitals()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.crawler.init_countries"><code class="docutils literal notranslate"><span class="pre">init_countries()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-crawler.helpers">crawler.helpers module</a><ul>
+<li><a class="reference internal" href="#crawler.helpers.anchors_are_valid"><code class="docutils literal notranslate"><span class="pre">anchors_are_valid()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.clean_language"><code class="docutils literal notranslate"><span class="pre">clean_language()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.clean_title"><code class="docutils literal notranslate"><span class="pre">clean_title()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.format_languages"><code class="docutils literal notranslate"><span class="pre">format_languages()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.get_column_number"><code class="docutils literal notranslate"><span class="pre">get_column_number()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.get_languages_from_td"><code class="docutils literal notranslate"><span class="pre">get_languages_from_td()</span></code></a></li>
+<li><a class="reference internal" href="#crawler.helpers.normalize_country_name"><code class="docutils literal notranslate"><span class="pre">normalize_country_name()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-crawler">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">crawler package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/crawler.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="crawler-package">
+<h1>crawler package<a class="headerlink" href="#crawler-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-crawler.crawler">
+<span id="crawler-crawler-module"></span><h2>crawler.crawler module<a class="headerlink" href="#module-crawler.crawler" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.crawl">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">crawl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#crawl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.crawl" title="Permalink to this definition"></a></dt>
+<dd><p>Crawl the Wikipedia websites for the data on the countries and their properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list with the countries, capitals, population, area, density, neighbouring countries, time zones,
+constitutional form, official languages, regional languages, minority languages, national languages, and
+widely spoken languages.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.get_capitals">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">get_capitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#get_capitals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.get_capitals" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of capital cities for a given list of countries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>countries</strong> (<em>list</em>) – A list of strings representing the names of the countries.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary mapping each country to a list of its capital cities.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.get_demographics_info">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">get_demographics_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#get_demographics_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.get_demographics_info" title="Permalink to this definition"></a></dt>
+<dd><p>Get demographic information for a list of countries from Wikipedia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>column</strong> (<em>int</em><em> or </em><em>str</em>) – The column number or name for the desired information on the Wikipedia page.</p></li>
+<li><p><strong>countries</strong> (<em>list</em>) – A list of strings representing the names of the countries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary mapping each country to its demographic information as an integer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.get_languages">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">get_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#get_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.get_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of languages by given column for each country in the given list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>column</strong> (<em>int</em>) – The column number for the language information on the Wikipedia page.</p></li>
+<li><p><strong>countries</strong> (<em>list</em>) – A list of strings representing the names of countries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary mapping country names to lists of official languages.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.get_multiple_info">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">get_multiple_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#get_multiple_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.get_multiple_info" title="Permalink to this definition"></a></dt>
+<dd><p>Get specific information for each country in the given list from the given Wikipedia page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – The URL of the Wikipedia page to scrape.</p></li>
+<li><p><strong>countries</strong> (<em>list</em>) – A list of strings representing the names of countries.</p></li>
+<li><p><strong>column</strong> (<em>int</em><em> or </em><em>str</em>) – The column number or name for the desired information on the Wikipedia page.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary mapping country names to the desired information.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.get_other_capitals">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">get_other_capitals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capitals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#get_other_capitals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.get_other_capitals" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of capital cities for a given list of countries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capitals</strong> (<em>list</em>) – A list of capital cities for a given country.</p></li>
+<li><p><strong>tr</strong> (<em>BeautifulSoup</em>) – A BeautifulSoup object representing a table row.</p></li>
+<li><p><strong>td</strong> (<em>BeautifulSoup</em>) – A BeautifulSoup object representing a table cell.</p></li>
+<li><p><strong>countries</strong> (<em>list</em>) – A list of strings representing the names of the countries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of capital cities for a given country.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.crawler.init_countries">
+<span class="sig-prename descclassname"><span class="pre">crawler.crawler.</span></span><span class="sig-name descname"><span class="pre">init_countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/crawler.html#init_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.crawler.init_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize a list of countries by scraping Wikipedia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of strings representing the names of countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-crawler.helpers">
+<span id="crawler-helpers-module"></span><h2>crawler.helpers module<a class="headerlink" href="#module-crawler.helpers" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.anchors_are_valid">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">anchors_are_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anchors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#anchors_are_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.anchors_are_valid" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the given anchors are valid.</p>
+<p>This function checks if the given anchors are not empty and contain a title. It returns a boolean indicating whether
+the anchors are valid or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>anchors</strong> (<em>list</em><em> of </em><em>dict</em>) – The anchors to be checked.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean indicating whether the anchors are valid or not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.clean_language">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">clean_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#clean_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.clean_language" title="Permalink to this definition"></a></dt>
+<dd><p>Clean the given language string by removing unnecessary characters and words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The language string to be cleaned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The cleaned language string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.clean_title">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">clean_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#clean_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.clean_title" title="Permalink to this definition"></a></dt>
+<dd><p>Clean the given title by removing unnecessary prefixes.</p>
+<p>This function removes unnecessary prefixes from the given title, such as “Demographics of the” or “Population of”,
+in order to obtain the name of the country.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> (<em>str</em>) – The title to be cleaned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The cleaned version of the title.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.format_languages">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">format_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">languages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#format_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.format_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Format the given list of languages by cleaning and normalizing them.</p>
+<p>This function removes unnecessary prefixes and suffixes from the languages in the list, and splits multiple languages
+that are separated by commas. It also removes empty or invalid languages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>languages</strong> (<em>list</em><em> of </em><em>str</em>) – The list of languages to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted list of languages.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.get_column_number">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">get_column_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#get_column_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.get_column_number" title="Permalink to this definition"></a></dt>
+<dd><p>Get the number of the column corresponding to the given property.</p>
+<p>This function maps the given property to a specific column number in a table. The column number is used to retrieve
+the data for the given property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>column</strong> (<em>str</em>) – The property for which the column number is to be retrieved.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The column number for the given property.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.get_languages_from_td">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">get_languages_from_td</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">countries</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#get_languages_from_td"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.get_languages_from_td" title="Permalink to this definition"></a></dt>
+<dd><p>Get the languages from the given td element.</p>
+<p>This function retrieves the languages from the given td element and adds them to the list of languages for the given
+country.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>td</strong> (<em>bs4.element.Tag</em>) – The td element from which the languages are to be retrieved.</p></li>
+<li><p><strong>country</strong> (<em>str</em>) – The name of the country for which the languages are to be retrieved.</p></li>
+<li><p><strong>countries</strong> (<em>dict</em><em> of </em><em>str to list</em><em> of </em><em>str</em>) – The dictionary of countries and their languages.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of languages for the given country.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="crawler.helpers.normalize_country_name">
+<span class="sig-prename descclassname"><span class="pre">crawler.helpers.</span></span><span class="sig-name descname"><span class="pre">normalize_country_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/crawler/helpers.html#normalize_country_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#crawler.helpers.normalize_country_name" title="Permalink to this definition"></a></dt>
+<dd><p>Normalize the given country name.</p>
+<p>Some country names may be ambiguous or not match the official name of the country. This function returns the
+official name of the country for the given input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>country</strong> (<em>str</em>) – The name of the country to be normalized.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The normalized country name.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-crawler">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-crawler" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

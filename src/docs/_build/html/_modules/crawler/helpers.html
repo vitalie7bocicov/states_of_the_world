@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crawler.helpers &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">crawler.helpers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for crawler.helpers</h1><div class="highlight"><pre>
+<span></span>
+<div class="viewcode-block" id="anchors_are_valid"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.anchors_are_valid">[docs]</a><span class="k">def</span> <span class="nf">anchors_are_valid</span><span class="p">(</span><span class="n">anchors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if the given anchors are valid.</span>
+
+<span class="sd">    This function checks if the given anchors are not empty and contain a title. It returns a boolean indicating whether</span>
+<span class="sd">    the anchors are valid or not.</span>
+
+<span class="sd">    :param anchors: The anchors to be checked.</span>
+<span class="sd">    :type anchors: list of dict</span>
+<span class="sd">    :returns: A boolean indicating whether the anchors are valid or not.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">anchors</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">anchor</span> <span class="o">=</span> <span class="n">anchors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">anchor</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">anchor</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="clean_title"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.clean_title">[docs]</a><span class="k">def</span> <span class="nf">clean_title</span><span class="p">(</span><span class="n">title</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clean the given title by removing unnecessary prefixes.</span>
+
+<span class="sd">    This function removes unnecessary prefixes from the given title, such as &quot;Demographics of the&quot; or &quot;Population of&quot;,</span>
+<span class="sd">    in order to obtain the name of the country.</span>
+
+<span class="sd">    :param title: The title to be cleaned.</span>
+<span class="sd">    :type title: str</span>
+<span class="sd">    :returns: The cleaned version of the title.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Demographics of the&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Demography of the&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">[</span><span class="n">title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;the &quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Demograph&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">[</span><span class="n">title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;of &quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">title</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Population of&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">[</span><span class="n">title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;of &quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">title</span></div>
+
+<div class="viewcode-block" id="get_column_number"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.get_column_number">[docs]</a><span class="k">def</span> <span class="nf">get_column_number</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the number of the column corresponding to the given property.</span>
+
+<span class="sd">    This function maps the given property to a specific column number in a table. The column number is used to retrieve</span>
+<span class="sd">    the data for the given property.</span>
+
+<span class="sd">    :param column: The property for which the column number is to be retrieved.</span>
+<span class="sd">    :type column: str</span>
+<span class="sd">    :returns: The column number for the given property.</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Population&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Constitutional form&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Official languages&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Area&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Time zones&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Regional languages&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Minority languages&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Density&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;National languages&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Neigbouring countries&quot;</span> <span class="ow">or</span> <span class="n">column</span> <span class="o">==</span> <span class="s2">&quot;Widely spoken languages&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">5</span></div>
+
+<div class="viewcode-block" id="normalize_country_name"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.normalize_country_name">[docs]</a><span class="k">def</span> <span class="nf">normalize_country_name</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalize the given country name.</span>
+
+<span class="sd">    Some country names may be ambiguous or not match the official name of the country. This function returns the</span>
+<span class="sd">    official name of the country for the given input.</span>
+
+<span class="sd">    :param country: The name of the country to be normalized.</span>
+<span class="sd">    :type country: str</span>
+<span class="sd">    :returns: The normalized country name.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Bahamas&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;The Bahamas&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Bahamas&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;The Bahamas&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Gambia&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;The Gambia&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Georgia&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;Georgia (country)&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Ireland&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;Republic of Ireland&quot;</span>
+    <span class="k">if</span> <span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;Artsakh&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;Republic of Artsakh&quot;</span>
+    <span class="k">return</span> <span class="n">country</span></div>
+
+<div class="viewcode-block" id="clean_language"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.clean_language">[docs]</a><span class="k">def</span> <span class="nf">clean_language</span><span class="p">(</span><span class="n">language</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clean the given language string by removing unnecessary characters and words.</span>
+
+<span class="sd">    :param language: The language string to be cleaned.</span>
+<span class="sd">    :type language: str</span>
+<span class="sd">    :returns: The cleaned language string.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)</span><span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="p">[:</span><span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="p">[:</span><span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; language&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;dialects&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="ow">or</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;see &quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> 
+        <span class="ow">or</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Languages of&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;in &quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;in &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot; people&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; people&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">language</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">language</span></div>
+
+<div class="viewcode-block" id="format_languages"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.format_languages">[docs]</a><span class="k">def</span> <span class="nf">format_languages</span><span class="p">(</span><span class="n">languages</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format the given list of languages by cleaning and normalizing them.</span>
+
+<span class="sd">    This function removes unnecessary prefixes and suffixes from the languages in the list, and splits multiple languages</span>
+<span class="sd">    that are separated by commas. It also removes empty or invalid languages.</span>
+
+<span class="sd">    :param languages: The list of languages to be formatted.</span>
+<span class="sd">    :type languages: list of str</span>
+<span class="sd">    :returns: The formatted list of languages.</span>
+<span class="sd">    :rtype: list of str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">languages</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span> 
+        <span class="ow">or</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;languages - &quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">multiple_languages</span> <span class="o">=</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;languages - &quot;</span><span class="p">)</span><span class="o">+</span><span class="mi">12</span><span class="p">:]</span>
+            <span class="n">languages</span> <span class="o">=</span> <span class="n">multiple_languages</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">languages</span><span class="p">)):</span>
+        <span class="n">languages</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_language</span><span class="p">(</span><span class="n">languages</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">languages</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">languages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;Regional/State&quot;</span><span class="p">)</span><span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">languages</span></div>
+
+<div class="viewcode-block" id="get_languages_from_td"><a class="viewcode-back" href="../../crawler.html#crawler.helpers.get_languages_from_td">[docs]</a><span class="k">def</span> <span class="nf">get_languages_from_td</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">countries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the languages from the given td element.</span>
+
+<span class="sd">    This function retrieves the languages from the given td element and adds them to the list of languages for the given</span>
+<span class="sd">    country.</span>
+
+<span class="sd">    :param td: The td element from which the languages are to be retrieved.</span>
+<span class="sd">    :type td: bs4.element.Tag</span>
+<span class="sd">    :param country: The name of the country for which the languages are to be retrieved.</span>
+<span class="sd">    :type country: str</span>
+<span class="sd">    :param countries: The dictionary of countries and their languages.</span>
+<span class="sd">    :type countries: dict of str to list of str</span>
+<span class="sd">    :returns: The list of languages for the given country.</span>
+<span class="sd">    :rtype: list of str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ul</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ul</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">ul</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">li</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">):</span> <span class="k">break</span>
+            <span class="k">if</span> <span class="n">li</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a[title]&quot;</span><span class="p">):</span>
+                <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">li</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">li</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">td</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">):</span> 
+            <span class="n">td</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">td</span><span class="o">.</span><span class="n">next_element</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
+                <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">next_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">next_element</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">countries</span><span class="p">[</span><span class="n">country</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

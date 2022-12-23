@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wikipedia_api module &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">wikipedia_api module</a><ul>
+<li><a class="reference internal" href="#wikipedia_api.countries"><code class="docutils literal notranslate"><span class="pre">countries()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_area"><code class="docutils literal notranslate"><span class="pre">countries_by_area()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_constitutional_form"><code class="docutils literal notranslate"><span class="pre">countries_by_constitutional_form()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_density"><code class="docutils literal notranslate"><span class="pre">countries_by_density()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_minority_language"><code class="docutils literal notranslate"><span class="pre">countries_by_minority_language()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_national_language"><code class="docutils literal notranslate"><span class="pre">countries_by_national_language()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_national_languages"><code class="docutils literal notranslate"><span class="pre">countries_by_national_languages()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_neighbouring_countries"><code class="docutils literal notranslate"><span class="pre">countries_by_neighbouring_countries()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_official_language"><code class="docutils literal notranslate"><span class="pre">countries_by_official_language()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_official_languages"><code class="docutils literal notranslate"><span class="pre">countries_by_official_languages()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_population"><code class="docutils literal notranslate"><span class="pre">countries_by_population()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_regional_language"><code class="docutils literal notranslate"><span class="pre">countries_by_regional_language()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_regional_languages"><code class="docutils literal notranslate"><span class="pre">countries_by_regional_languages()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_time_zone"><code class="docutils literal notranslate"><span class="pre">countries_by_time_zone()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_time_zones"><code class="docutils literal notranslate"><span class="pre">countries_by_time_zones()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_widely_spoken_language"><code class="docutils literal notranslate"><span class="pre">countries_by_widely_spoken_language()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_by_widely_spoken_languages"><code class="docutils literal notranslate"><span class="pre">countries_by_widely_spoken_languages()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_capitals"><code class="docutils literal notranslate"><span class="pre">countries_capitals()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.countries_with_more_than_1_capital"><code class="docutils literal notranslate"><span class="pre">countries_with_more_than_1_capital()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.country"><code class="docutils literal notranslate"><span class="pre">country()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.top_10_by_area"><code class="docutils literal notranslate"><span class="pre">top_10_by_area()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.top_10_by_density"><code class="docutils literal notranslate"><span class="pre">top_10_by_density()</span></code></a></li>
+<li><a class="reference internal" href="#wikipedia_api.top_10_by_population"><code class="docutils literal notranslate"><span class="pre">top_10_by_population()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">wikipedia_api module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/wikipedia_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-wikipedia_api">
+<span id="wikipedia-api-module"></span><h1>wikipedia_api module<a class="headerlink" href="#module-wikipedia_api" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_area">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DESC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_area" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>order</strong> (<em>str</em>) – The order in which the countries should be returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries and their area.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_constitutional_form">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_constitutional_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constitutional_form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_constitutional_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_constitutional_form" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given constitutional form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>constitutional_form</strong> (<em>str</em>) – The constitutional form.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given constitutional form.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_density">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DESC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_density" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their density.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>order</strong> (<em>str</em>) – The order in which the countries should be returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries and their density.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_minority_language">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_minority_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_minority_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_minority_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given minority language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The minority language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given minority language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_national_language">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_national_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_national_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_national_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given national language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The national language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given national language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_national_languages">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_national_languages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_national_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_national_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their national languages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their national languages.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_neighbouring_countries">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_neighbouring_countries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_neighbouring_countries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_neighbouring_countries" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their neighbouring countries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their neighbouring countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_official_language">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_official_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_official_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_official_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given official language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The official language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given official language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_official_languages">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_official_languages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_official_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_official_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their official languages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their official languages.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_population">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DESC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_population"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_population" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their population.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>order</strong> (<em>str</em>) – The order in which the countries should be returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries and their population.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_regional_language">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_regional_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_regional_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_regional_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given regional language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The regional language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given regional language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_regional_languages">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_regional_languages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_regional_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_regional_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their regional languages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their regional languages.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_time_zone">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_time_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_zone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_time_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_time_zone" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries in the given time zone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time_zone</strong> (<em>str</em>) – The time zone.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries in the given time zone.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_time_zones">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_time_zones</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_time_zones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_time_zones" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their time zones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their time zones.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_widely_spoken_language">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_widely_spoken_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_widely_spoken_language"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_widely_spoken_language" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with the given widely spoken language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<em>str</em>) – The widely spoken language.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with all countries with the given widely spoken language.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_by_widely_spoken_languages">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_by_widely_spoken_languages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_by_widely_spoken_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_by_widely_spoken_languages" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries and their minority languages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries and their minority languages.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_capitals">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_capitals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_capitals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_capitals" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name and capital of all countries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the name and capital of all countries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.countries_with_more_than_1_capital">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">countries_with_more_than_1_capital</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#countries_with_more_than_1_capital"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.countries_with_more_than_1_capital" title="Permalink to this definition"></a></dt>
+<dd><p>Get all countries with more than 1 capital.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with all countries with more than 1 capital.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.country">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">country</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">country</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#country"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.country" title="Permalink to this definition"></a></dt>
+<dd><p>Get the properties of the given country.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>country</strong> (<em>str</em>) – The name of the country.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string with the properties of the given country.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.top_10_by_area">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">top_10_by_area</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#top_10_by_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.top_10_by_area" title="Permalink to this definition"></a></dt>
+<dd><p>Get the top 10 countries by area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the top 10 countries by area.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.top_10_by_density">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">top_10_by_density</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#top_10_by_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.top_10_by_density" title="Permalink to this definition"></a></dt>
+<dd><p>Get the top 10 countries by density.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the top 10 countries by density.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="wikipedia_api.top_10_by_population">
+<span class="sig-prename descclassname"><span class="pre">wikipedia_api.</span></span><span class="sig-name descname"><span class="pre">top_10_by_population</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wikipedia_api.html#top_10_by_population"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#wikipedia_api.top_10_by_population" title="Permalink to this definition"></a></dt>
+<dd><p>Get the top 10 countries by population.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string with the top 10 countries by population.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

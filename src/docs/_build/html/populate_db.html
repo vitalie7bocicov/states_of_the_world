@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>populate_db module &mdash; States of the world documentation 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> States of the world documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">populate_db module</a><ul>
+<li><a class="reference internal" href="#populate_db.populate_db"><code class="docutils literal notranslate"><span class="pre">populate_db()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">States of the world documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">populate_db module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/populate_db.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-populate_db">
+<span id="populate-db-module"></span><h1>populate_db module<a class="headerlink" href="#module-populate_db" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="populate_db.populate_db">
+<span class="sig-prename descclassname"><span class="pre">populate_db.</span></span><span class="sig-name descname"><span class="pre">populate_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capitals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbouring_countries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_zones</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constitutional_form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">official_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regional_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minority_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">national_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widely_spoken_languages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/populate_db.html#populate_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#populate_db.populate_db" title="Permalink to this definition"></a></dt>
+<dd><p>Populate the MySQL database with data from the given dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>countries</strong> (<em>list</em>) – A list of countries.</p></li>
+<li><p><strong>capitals</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of capital cities.</p></li>
+<li><p><strong>population</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing population data.</p></li>
+<li><p><strong>area</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing area data.</p></li>
+<li><p><strong>density</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing density data.</p></li>
+<li><p><strong>neighbouring_countries</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of neighbouring countries.</p></li>
+<li><p><strong>time_zones</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of time zones.</p></li>
+<li><p><strong>constitutional_form</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing constitutional form data.</p></li>
+<li><p><strong>official_languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of official languages.</p></li>
+<li><p><strong>regional_languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of regional languages.</p></li>
+<li><p><strong>minority_languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of minority languages.</p></li>
+<li><p><strong>national_languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of national languages.</p></li>
+<li><p><strong>widely_spoken_languages</strong> (<em>dict</em>) – A dictionary with keys representing countries and values representing lists of widely spoken languages.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Error</strong> – If there is an error inserting data into the database.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Bocicov Vitalie.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
