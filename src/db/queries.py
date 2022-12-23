@@ -18,19 +18,23 @@ def get_top_10_by_property(column):
     connection.close()
     return response
 
-def get_all_countries():
+def get_all_countries(save):
     """
-    Get all countries and their properties from the 'states' table.
+    Get a list of all countries from the 'states' table.
 
-    :returns: A string with all countries and their properties.
+    :param save: Whether to save the list of countries to a file.
+    :type save: bool
+    :returns: A string with the name, population, area, density and constitutional form of all countries.
     :rtype: str
     :raises Error: If there is an error executing the SELECT query.
     """
     connection = create_server_connection()
     query = "SELECT NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL_FORM FROM states"
-    response = f"NAME,POPULATION,AREA,DENSITY,CONSITUTIONAL FORM:\n"
+    response = f"NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL FORM:\n"
     response += create_response(execute_select(connection,query))
     connection.close()
+    if save:
+        save_to_file("countries",response)
     return response
 
 def get_all_capitals():
@@ -45,7 +49,6 @@ def get_all_capitals():
     query = "SELECT states.NAME,capitals.NAME FROM states JOIN capitals on states.ID=capitals.ID;"
     query_result = execute_select(connection,query)
     result = format_query_result(query_result)
-    print(result)
     response = f"NAME,CAPITAL:\n"
     response += create_response(result)
     connection.close()

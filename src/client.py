@@ -36,8 +36,8 @@ if __name__ == "__main__":
     # response = requests.get(api_url + "/top_10_countries_by_density")
     # printer(response.text)
     
-    # response = requests.get(api_url + "/countries")
-    # printer(response.text)
+    response = requests.get(api_url + "/countries?save=True")
+    printer(response.text)
 
     # response = requests.get(api_url + "/countries/capitals")
     # printer(response.text)

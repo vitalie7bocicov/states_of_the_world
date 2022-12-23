@@ -1,0 +1,207 @@
+NAME,POPULATION,AREA,DENSITY,CONSTITUTIONAL FORM:
+Afghanistan,40099462,652864.0,61.0,Provisional
+Albania,2854710,28748.0,99.0,Republic
+Algeria,44177969,2381740.0,19.0,Republic
+Andorra,79034,468.0,169.0,Constitutional monarchy
+Angola,34503774,1246700.0,28.0,Republic
+Antigua and Barbuda,93219,442.0,211.0,Constitutional monarchy
+Argentina,45276780,2780400.0,16.0,Republic
+Armenia,2790974,29743.0,94.0,Republic
+Australia,25921089,7692020.0,3.0,Constitutional monarchy
+Austria,8922082,83871.0,106.0,Republic
+Azerbaijan,10312992,86600.0,119.0,Republic
+The Bahamas,407906,13943.0,29.0,Constitutional monarchy
+Bahrain,1463265,785.0,1864.0,Constitutional monarchy
+Bangladesh,169356251,147570.0,1148.0,Republic
+Barbados,281200,430.0,654.0,Republic
+Belarus,9578167,207600.0,46.0,Republic
+Belgium,11611419,30528.0,380.0,Constitutional monarchy
+Belize,400031,22966.0,17.0,Constitutional monarchy
+Benin,12996895,114763.0,113.0,Republic
+Bhutan,777486,38394.0,20.0,Constitutional monarchy
+Bolivia,12079472,1098580.0,11.0,Republic
+Bosnia and Herzegovina,3270943,51209.0,64.0,Republic
+Botswana,2588423,582000.0,4.0,Republic
+Brazil,214326223,8514880.0,25.0,Republic
+Brunei,445373,5765.0,77.0,Absolute monarchy
+Bulgaria,6885868,110912.0,62.0,Republic
+Burkina Faso,22100683,272967.0,81.0,Provisional
+Burundi,12551213,27834.0,451.0,Republic
+Cambodia,16589023,181035.0,92.0,Constitutional monarchy
+Cameroon,27198628,475650.0,57.0,Republic
+Canada,38155012,9093510.0,4.0,Constitutional monarchy
+Cape Verde,587925,4033.0,146.0,Republic
+Central African Republic,5457154,622984.0,9.0,Republic
+Chad,17179740,1284000.0,13.0,Provisional
+Chile,19493184,756102.0,26.0,Republic
+China,1425893465,9596960.0,149.0,Republic
+Colombia,51516562,1141750.0,45.0,Republic
+Comoros,821625,2235.0,368.0,Republic
+Democratic Republic of the Congo,95894118,2344860.0,41.0,Republic
+Republic of the Congo,5835806,342000.0,17.0,Republic
+Costa Rica,5153957,51100.0,101.0,Republic
+Croatia,4060135,56594.0,72.0,Republic
+Cuba,11256372,109884.0,102.0,Republic
+Cyprus,1244188,9251.0,134.0,Republic
+Czech Republic,10510751,78866.0,133.0,Republic
+Denmark,5854240,43094.0,136.0,Constitutional monarchy
+Djibouti,1105557,23200.0,48.0,Republic
+Dominica,72412,751.0,96.0,Republic
+Dominican Republic,11117873,48192.0,231.0,Republic
+East Timor,1320942,14919.0,89.0,Republic
+Ecuador,17797737,256369.0,69.0,Republic
+Egypt,109262178,1002000.0,109.0,Republic
+El Salvador,6314167,21041.0,300.0,Republic
+Equatorial Guinea,1634466,28051.0,58.0,Republic
+Eritrea,3620312,117600.0,31.0,Republic
+Estonia,1328701,45227.0,29.0,Republic
+Eswatini,1192271,17363.0,69.0,Absolute monarchy
+Ethiopia,120283026,1104300.0,109.0,Republic
+Fiji,926276,18272.0,51.0,Republic
+Finland,5535992,336852.0,16.0,Republic
+France,64531444,551500.0,117.0,Republic
+Gabon,2341179,267668.0,9.0,Republic
+The Gambia,2639916,11295.0,234.0,Republic
+Georgia (country),3688647,69700.0,53.0,Republic
+Germany,83408554,357022.0,234.0,Republic
+Ghana,32833031,238533.0,138.0,Republic
+Greece,10445365,131957.0,79.0,Republic
+Grenada,124610,344.0,362.0,Constitutional monarchy
+Guatemala,17608483,108889.0,162.0,Republic
+Guinea,13531906,245857.0,55.0,Provisional
+Guinea-Bissau,2060721,36125.0,57.0,Republic
+Guyana,804567,214969.0,4.0,Republic
+Haiti,11447569,27750.0,413.0,Republic
+Honduras,10278345,112492.0,91.0,Republic
+Hungary,9709786,93026.0,104.0,Republic
+Iceland,370335,103000.0,4.0,Republic
+India,1407563842,3287260.0,428.0,Republic
+Indonesia,273753191,1910930.0,143.0,Republic
+Iran,87923432,1628750.0,54.0,Republic
+Iraq,43533592,435244.0,100.0,Republic
+Republic of Ireland,4986526,69825.0,71.0,Republic
+Israel,8900059,22072.0,403.0,Republic
+Italy,59240329,301339.0,197.0,Republic
+Ivory Coast,27478249,322463.0,85.0,Republic
+Jamaica,2827695,10991.0,257.0,Constitutional monarchy
+Japan,125502000,377930.0,332.0,Constitutional monarchy
+Jordan,11148278,89328.0,125.0,Constitutional monarchy
+Kazakhstan,19196465,2724900.0,7.0,Republic
+Kenya,53005614,591958.0,90.0,Republic
+Kiribati,128874,726.0,178.0,Republic
+North Korea,25971909,120538.0,215.0,Republic
+South Korea,51830139,100148.0,518.0,Republic
+Kuwait,4250114,17818.0,239.0,Constitutional monarchy
+Kyrgyzstan,6527743,199949.0,33.0,Republic
+Laos,7425057,236800.0,31.0,Republic
+Latvia,1873919,64562.0,29.0,Republic
+Lebanon,5592631,10452.0,535.0,Republic
+Lesotho,2281454,30355.0,75.0,Constitutional monarchy
+Liberia,5193416,111369.0,47.0,Republic
+Libya,6735277,1759540.0,4.0,Provisional
+Liechtenstein,39039,160.0,244.0,Constitutional monarchy
+Lithuania,2786651,65300.0,43.0,Republic
+Luxembourg,639321,2586.0,247.0,Constitutional monarchy
+Madagascar,28915653,587295.0,49.0,Republic
+Malawi,19889742,118484.0,168.0,Republic
+Malaysia,33573874,330803.0,101.0,Constitutional monarchy
+Maldives,521457,300.0,1738.0,Republic
+Mali,21904983,1240190.0,18.0,Provisional
+Malta,526748,316.0,1667.0,Republic
+Marshall Islands,42050,181.0,232.0,Republic
+Mauritania,4614974,1030700.0,4.0,Republic
+Mauritius,1298915,1969.0,660.0,Republic
+Mexico,126705138,1964380.0,65.0,Republic
+Federated States of Micronesia,534606,702.0,762.0,Republic
+Moldova,3061506,33846.0,90.0,Republic
+Monaco,36686,2.0,18343.0,Constitutional monarchy
+Mongolia,3347782,1564120.0,2.0,Republic
+Montenegro,627859,13812.0,45.0,Republic
+Morocco,37076584,446550.0,83.0,Constitutional monarchy
+Mozambique,32077072,801590.0,40.0,Republic
+Myanmar,53798084,676578.0,80.0,Provisional
+Namibia,2530151,824268.0,3.0,Republic
+Nauru,12511,21.0,596.0,Republic
+Nepal,30034989,147181.0,204.0,Republic
+Netherlands,17501696,37354.0,469.0,Constitutional monarchy
+New Zealand,5129727,270467.0,19.0,Constitutional monarchy
+Nicaragua,6850540,130373.0,53.0,Republic
+Niger,25252722,1267000.0,20.0,Republic
+Nigeria,213401323,923768.0,231.0,Republic
+North Macedonia,2103330,25713.0,82.0,Republic
+Norway,5403021,323787.0,17.0,Constitutional monarchy
+Oman,4520471,309500.0,15.0,Absolute monarchy
+Pakistan,231402117,881913.0,262.0,Republic
+Palau,18024,459.0,39.0,Republic
+State of Palestine,5133392,6020.0,853.0,Republic
+Panama,4351267,75417.0,58.0,Republic
+Papua New Guinea,9949437,462840.0,21.0,Constitutional monarchy
+Paraguay,6703799,406752.0,16.0,Republic
+Peru,33715471,1285220.0,26.0,Republic
+Philippines,113880328,300000.0,380.0,Republic
+Poland,38307726,389888.0,98.0,Republic
+Portugal,10290103,92212.0,112.0,Republic
+Qatar,2688235,11607.0,232.0,Constitutional monarchy
+Romania,19186201,238391.0,80.0,Republic
+Russia,145102755,17098200.0,8.0,Republic
+Rwanda,13461888,26338.0,511.0,Republic
+Saint Kitts and Nevis,47606,261.0,182.0,Constitutional monarchy
+Saint Lucia,179651,539.0,333.0,Constitutional monarchy
+Saint Vincent and the Grenadines,104332,389.0,268.0,Constitutional monarchy
+Samoa,218764,2842.0,77.0,Republic
+San Marino,33745,61.0,553.0,Republic
+São Tomé and Príncipe,223107,964.0,231.0,Republic
+Saudi Arabia,35950396,2206710.0,16.0,Absolute monarchy
+Senegal,16624000,196712.0,85.0,Republic
+Serbia,7296769,88361.0,83.0,Republic
+Seychelles,106471,456.0,233.0,Republic
+Sierra Leone,8420641,72300.0,116.0,Republic
+Singapore,5453600,716.0,7617.0,Republic
+Slovakia,5447622,49036.0,111.0,Republic
+Slovenia,2119410,20420.0,104.0,Republic
+Solomon Islands,707851,28896.0,24.0,Constitutional monarchy
+Somalia,17065581,637657.0,27.0,Republic
+South Africa,59392255,1221040.0,49.0,Republic
+South Sudan,10748272,644329.0,17.0,Republic
+Spain,47486935,505992.0,94.0,Constitutional monarchy
+Sri Lanka,21773441,65610.0,332.0,Republic
+Sudan,45657202,1861480.0,25.0,Provisional
+Suriname,612985,163820.0,4.0,Republic
+Sweden,10467097,450295.0,23.0,Constitutional monarchy
+Switzerland,8691406,41285.0,211.0,Republic
+Syria,21324367,185180.0,115.0,Republic
+Tajikistan,9750064,143100.0,68.0,Republic
+Tanzania,63588334,947303.0,67.0,Republic
+Thailand,71601103,513120.0,140.0,Constitutional monarchy
+Togo,8644829,56785.0,152.0,Republic
+Tonga,106017,747.0,142.0,Constitutional monarchy
+Trinidad and Tobago,1525663,5130.0,297.0,Republic
+Tunisia,12262946,163610.0,75.0,Republic
+Turkey,84775404,783562.0,108.0,Republic
+Turkmenistan,6341855,488100.0,13.0,Republic
+Tuvalu,11204,26.0,431.0,Constitutional monarchy
+Uganda,45853778,241550.0,190.0,Republic
+Ukraine,43531422,603500.0,72.0,Republic
+United Arab Emirates,9365145,83600.0,112.0,Constitutional monarchy
+United Kingdom,67281039,242495.0,277.0,Constitutional monarchy
+United States,336997624,9629090.0,35.0,Republic
+Uruguay,3426260,176215.0,19.0,Republic
+Uzbekistan,34081449,447400.0,76.0,Republic
+Vanuatu,319137,12189.0,26.0,Republic
+Vatican City,511,0.0,1043.0,Absolute monarchy
+Venezuela,28199867,912050.0,31.0,Republic
+Vietnam,97468029,330957.0,295.0,Republic
+Yemen,32981641,527968.0,62.0,Provisional
+Zambia,19473125,752612.0,26.0,Republic
+Zimbabwe,15993524,390757.0,41.0,Republic
+Abkhazia,None,None,None,Republic
+Republic of Artsakh,120000,3170.0,38.0,Republic
+Cook Islands,17003,236.0,72.0,Constitutional monarchy
+Kosovo,1935259,10887.0,178.0,Republic
+Niue,1937,260.0,7.0,Constitutional monarchy
+Northern Cyprus,382836,3355.0,114.0,Republic
+Sahrawi Arab Democratic Republic,None,None,None,Republic
+Somaliland,None,None,None,Republic
+South Ossetia,None,None,None,Republic
+Taiwan,23859912,36193.0,659.0,Republic
+Transnistria,347251,4163.0,83.0,Republic

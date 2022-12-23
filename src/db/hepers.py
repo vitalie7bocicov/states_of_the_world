@@ -41,3 +41,16 @@ def format_query_result(query_result):
         country_list.extend(countries[country])
         result.append(tuple(country_list))
     return result
+
+def save_to_file(file_name,data):
+    """
+    Save the given data to a file with the given name.
+
+    :param file_name: The name of the file to be created.
+    :type file_name: str
+    :param data: The data to be saved to the file.
+    :type data: str
+    """
+    with open(f"output/{file_name}.txt","w") as file:
+        file.write(data)
+    
